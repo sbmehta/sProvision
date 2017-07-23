@@ -86,7 +86,7 @@ fi
 ################ sbm specific preferences #################
 export PATH=/home/samar/anaconda3/bin:$PATH
 
-PROMPT="%{$fg_bold[green]%}%n%{$fg_no_bold[white]%} :%~> "
+PROMPT="%{$fg_bold[green]%}%n%{$fg_no_bold[white]%}:%~> "
 RPROMPT="%*"
 
 ## ALIASES
