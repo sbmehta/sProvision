@@ -89,6 +89,8 @@ export PATH=/home/samar/anaconda3/bin:$PATH
 PROMPT="%{$fg_bold[green]%}%n%{$fg_no_bold[white]%}:%~> "
 RPROMPT="%*"
 
+eval "$(dircolors --sh .dir_colors)"
+
 ## ALIASES
 alias ls='ls -aF --color=auto'
 alias cp='cp -i'
