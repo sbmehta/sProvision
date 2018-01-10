@@ -84,8 +84,6 @@ fi
 
 
 ################ sbm specific preferences #################
-export PATH=/home/samar/anaconda3/bin:$PATH
-
 PROMPT="%{$fg_bold[green]%}%n%F{white}@%F{146}%M%{$fg_no_bold[white]%}:%~> "
 RPROMPT="%*"
 
@@ -95,3 +93,10 @@ eval "$(dircolors --sh .dir_colors)"
 alias ls='ls -aF --color=auto'
 alias cp='cp -i'
 alias mv='mv -i'
+
+alias insync='insync-headless'
+
+## COMPLETION
+export PATH=/home/samar/anaconda3/bin:$PATH
+
+#fpath=(~/.zsh/completion $path)
