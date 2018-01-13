@@ -84,7 +84,7 @@ fi
 PROMPT="%{$fg_bold[green]%}%n%F{white}@%F{146}%M%{$fg_no_bold[white]%}:%~> "
 RPROMPT="%*"
 
-plugins=(git ssh-agent)
+#plugins=(git ssh-agent)
 
 eval "$(dircolors --sh .dir_colors)"
 
