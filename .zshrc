@@ -1,6 +1,4 @@
-
 # Set up the prompt
-
 autoload -Uz promptinit
 autoload -U colors && colors
 promptinit
@@ -43,7 +41,6 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 typeset -A key
 
 key[Home]=${terminfo[khome]}
-
 key[End]=${terminfo[kend]}
 key[Insert]=${terminfo[kich1]}
 key[Delete]=${terminfo[kdch1]}
@@ -95,8 +92,12 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 alias insync='insync-headless'
+alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 
 ## COMPLETION
 export PATH=/home/samar/anaconda3/bin:$PATH
 
 #fpath=(~/.zsh/completion $path)
+
+## INFO
+neofetch
