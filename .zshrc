@@ -96,10 +96,14 @@ alias mv='mv -i'
 alias insync='insync-headless'
 alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 
+
+
 ## COMPLETION
 export PATH=/home/samar/anaconda3/bin:$PATH
 
 #fpath=(~/.zsh/completion $path)
 
 ## INFO
-neofetch
+if (($+commands[neofetch])); then
+    neofetch
+fi
