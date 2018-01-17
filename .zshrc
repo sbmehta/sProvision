@@ -16,7 +16,7 @@ HISTFILE=~/.zsh_history
 
 # Use modern completion system
 autoload -Uz compinit
-compinit
+compinit -u
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -39,7 +39,6 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
 typeset -A key
-
 key[Home]=${terminfo[khome]}
 key[End]=${terminfo[kend]}
 key[Insert]=${terminfo[kich1]}
@@ -52,7 +51,6 @@ key[PageUp]=${terminfo[kpp]}
 key[PageDown]=${terminfo[knp]}
 
 # setup keys accordingly
-
 [[ -n "${key[Home]}"     ]]  && bindkey  "${key[Home]}"     beginning-of-line
 [[ -n "${key[End]}"      ]]  && bindkey  "${key[End]}"      end-of-line
 [[ -n "${key[Insert]}"   ]]  && bindkey  "${key[Insert]}"   overwrite-mode
@@ -80,6 +78,45 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
 fi
 
 
+#################### Broad environment ####################
+if [[ -f /broad/software/dotkit/etc/systype ]]; then
+
+  # Modified from Broad's default .bashrc
+  M_TYPE=`/broad/software/dotkit/etc/systype`
+
+  case $M_TYPE in
+    suse*)
+      # Source systemwide configuration
+      if [[ -f /util/etc/setup_zsh ]]; then
+        . /util/etc/setup_zsh
+      fi
+
+      # Source group configuration
+      PRIGRP=`groups | awk '{print $!}'`
+      if [[ -f /util/etc/$PRIGRP.setup_zsh ]]; then
+        . /util/etc/$PRIGRP.setup_zsh
+      fi
+      ;;
+    *)
+      # Set up dotkit
+      eval `/broad/software/dotkit/init -b`
+
+      if [[ -o login ]]; then          # Login shells
+        if [[ "x$RUN_ONCE" == "x"  ]]; then
+          export RUN_ONCE="1"
+          # Load the default dotkits to set up basic Broad user environment
+          use -q default
+        fi
+      fi
+
+      if [[ -o interactive ]]; then    # Interactive shells
+        use -q default++
+      fi
+      ;;
+  esac
+fi
+
+
 ################ sbm specific preferences #################
 PROMPT="%{$fg_bold[green]%}%n%F{white}@%F{146}%M%{$fg_no_bold[white]%}:%~> "
 RPROMPT="%*"
@@ -95,7 +132,6 @@ alias mv='mv -i'
 
 alias insync='insync-headless'
 alias sjupyter='jupyter notebook --no-browser --port=8889 &'
-
 
 
 ## COMPLETION

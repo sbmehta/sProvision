@@ -123,8 +123,11 @@
 (global-set-key "OB" 'next-line)
 (global-set-key "m" 'mh-smail)
 
+
+;; sbm customization
+
 ;(load-library "shell")
-(setq explicit-shell-file-name "/usr/bin/tcsh")
+(setq explicit-shell-file-name "/usr/bin/zsh")
 
 
 
