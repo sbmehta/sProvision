@@ -7,8 +7,9 @@ case $- in
         ;;
 esac
 
+echo "Configuring BASH"
 if shopt -q login_shell; then
-  echo "LOGIN shell."     # Insert commands for login shells here
+  echo "LOGIN shell"     # Insert commands for login shells here
 fi
 
 
