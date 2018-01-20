@@ -7,7 +7,7 @@ fi
 
 echo "Configuring ZSH"
 if [[ -o login ]]; then
-  echo "LOGIN shell"             # Insert commands for login shells here.
+  echo "LOGIN ZSH"             # Insert commands for login shells here.
 fi
 
 

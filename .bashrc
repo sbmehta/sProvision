@@ -7,11 +7,12 @@ case $- in
         ;;
 esac
 
-echo "Configuring BASH"
-if shopt -q login_shell; then
-  echo "LOGIN shell"     # Insert commands for login shells here
-fi
+if shopt -q login_shell; then # Insert commands for login shells here
+  export SHELL=/bin/zsh  
+  exec /bin/zsh -l
 
+  echo "LOGIN BASH"     
+fi
 
 ########## HISTORY  ####################
 HISTCONTROL=ignoreboth  # ignore dup lines or lines starting with space
