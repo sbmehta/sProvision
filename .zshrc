@@ -122,7 +122,7 @@ fi
 
 
 ########## PLUGINS  ####################
-eval "$(ssh-agent) -s"
+eval "$(ssh-agent -s)"
 
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
