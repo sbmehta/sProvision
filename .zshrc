@@ -1,20 +1,36 @@
-# Set up the prompt
-autoload -Uz promptinit
-autoload -U colors && colors
-promptinit
-#prompt adam1
+# ~/.zshrc: executed by zsh(1)
 
+if [[ ! -o interactive ]]; then
+   return                         # Insert commands for non-interactive shells here.
+fi
+
+if [[ -o login ]]; then
+  echo "LOGIN shell."             # Insert commands for login shells here.
+fi
+
+
+########## HISTORY  ####################
 setopt histignorealldups sharehistory
-
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
-
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=5000
 SAVEHIST=5000
 HISTFILE=~/.zsh_history
 
-# Use modern completion system
+
+########## PROMPT  #####################
+autoload -Uz promptinit
+autoload -U colors && colors
+promptinit
+PROMPT="%{$fg_bold[green]%}%n%F{white}@%F{146}%M%{$fg_no_bold[white]%}:%~> "
+RPROMPT="%*"
+
+
+########## DISPLAY #####################
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/dotfiles/.dir_colors && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
+fi
+
+
+########## COMPLETION  #################
 autoload -Uz compinit
 compinit -u
 
@@ -62,6 +78,9 @@ key[PageDown]=${terminfo[knp]}
 [[ -n "${key[PageUp]}"   ]]  && bindkey  "${key[PageUp]}"   beginning-of-buffer-or-history
 [[ -n "${key[PageDown]}" ]]  && bindkey  "${key[PageDown]}" end-of-buffer-or-history
 
+# Use emacs keybindings even if our EDITOR is set to vi
+bindkey -e
+
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
 if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
@@ -78,68 +97,45 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
 fi
 
 
-#################### Broad environment ####################
+########## BROAD environment  ##########
 if [[ -f /broad/software/dotkit/etc/systype ]]; then
 
-  # Modified from Broad's default .bashrc
-  M_TYPE=`/broad/software/dotkit/etc/systype`
+  # Modified from Broad's default .bashrc -- n ote this won't work for SUSE systems
 
-  case $M_TYPE in
-    suse*)
-      # Source systemwide configuration
-      if [[ -f /util/etc/setup_zsh ]]; then
-        . /util/etc/setup_zsh
-      fi
-
-      # Source group configuration
-      PRIGRP=`groups | awk '{print $!}'`
-      if [[ -f /util/etc/$PRIGRP.setup_zsh ]]; then
-        . /util/etc/$PRIGRP.setup_zsh
-      fi
-      ;;
-    *)
-      # Set up dotkit
-      eval `/broad/software/dotkit/init -b`
-
-      if [[ -o login ]]; then          # Login shells
-        if [[ "x$RUN_ONCE" == "x"  ]]; then
+  # Set up dotkit
+  eval `/broad/software/dotkit/init -b`
+  
+  if [[ -o login ]]; then          # Login shells
+      if [[ "x$RUN_ONCE" == "x"  ]]; then
           export RUN_ONCE="1"
           # Load the default dotkits to set up basic Broad user environment
           use -q default
-        fi
       fi
-
-      if [[ -o interactive ]]; then    # Interactive shells
-        use -q default++
-      fi
-      ;;
-  esac
+  fi
+  
+  if [[ -o interactive ]]; then    # Interactive shells
+      use -q default++
+  fi
 fi
 
 
-################ sbm specific preferences #################
-PROMPT="%{$fg_bold[green]%}%n%F{white}@%F{146}%M%{$fg_no_bold[white]%}:%~> "
-RPROMPT="%*"
-
+########## PLUGINS  ####################
 #plugins=(git ssh-agent)
 
-eval "$(dircolors --sh .dir_colors)"
 
-## ALIASES
+########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
-alias cp='cp -i'
-alias mv='mv -i'
+alias grep='grep --color-auto'
 
 alias insync='insync-headless'
 alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 
 
-## COMPLETION
-export PATH=/home/samar/anaconda3/bin:$PATH
+########## PATH  #######################
+export PATH="$HOME/anaconda3/bin:$HOME/.local/bin:$PATH"
 
-#fpath=(~/.zsh/completion $path)
 
-## INFO
-if (($+commands[neofetch])); then
+########## FINALIZE ####################
+if ! type "neofetch" &> /dev/null; then
     neofetch
 fi
