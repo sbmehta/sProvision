@@ -79,7 +79,7 @@ alias grep='grep --color=auto'
 alias passwd=yppasswd
 
 ########## PATH  #######################
-export PATH="$HOME/anaconda3/bin:$HOME/bin:$PATH"
+export PATH="$HOME/anaconda3/bin:$PATH"
 
 
 ########## FINALIZE ####################

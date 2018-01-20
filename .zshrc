@@ -132,7 +132,7 @@ alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 
 
 ########## PATH  #######################
-export PATH="$HOME/anaconda3/bin:$HOME/.local/bin:$PATH"
+export PATH="$HOME/anaconda3/bin:$PATH"
 
 
 ########## FINALIZE ####################
