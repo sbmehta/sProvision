@@ -5,10 +5,10 @@ if [[ ! -o interactive ]]; then
    return                         # Insert commands for non-interactive shells here.
 fi
 
-echo "Configuring ZSH"
 if [[ -o login ]]; then
-  echo "LOGIN ZSH"             # Insert commands for login shells here.
+  echo "Login ZSH"             # Insert commands for login shells here.
 fi
+echo "Configuring ZSH"
 
 
 ########## HISTORY  ####################

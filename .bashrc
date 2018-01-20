@@ -8,11 +8,12 @@ case $- in
 esac
 
 if shopt -q login_shell; then # Insert commands for login shells here
+  echo "Redirect from BASH"
   export SHELL=/bin/zsh  
   exec /bin/zsh -l
-
-  echo "LOGIN BASH"     
 fi
+
+echo "Configure BASH"
 
 ########## HISTORY  ####################
 HISTCONTROL=ignoreboth  # ignore dup lines or lines starting with space
@@ -68,11 +69,11 @@ fi
 
 
 ########## BROAD environment  ##########
-# On Broad servers, most of this is set up in .bashrc & .bash_login
+# On Broad servers, most of this is set up in .bashrc (and .bash_login, if not bypassed)
 
 
 ########## PLUGINS  ####################
-
+eval "$(ssh-agent) -s")
 
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
