@@ -136,6 +136,6 @@ export PATH="$HOME/anaconda3/bin:$HOME/.local/bin:$PATH"
 
 
 ########## FINALIZE ####################
-if ! type "neofetch" &> /dev/null; then
+if type "neofetch" &> /dev/null; then
     neofetch
 fi
