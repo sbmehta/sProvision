@@ -122,8 +122,7 @@ fi
 
 
 ########## PLUGINS  ####################
-#plugins=(git ssh-agent)
-
+eval "$(ssh-agent) -s")
 
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
