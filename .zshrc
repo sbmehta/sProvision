@@ -126,7 +126,6 @@ eval "$(ssh-agent -s)"
 
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
-alias grep='grep --color-auto'
 
 alias insync='insync-headless'
 alias sjupyter='jupyter notebook --no-browser --port=8889 &'

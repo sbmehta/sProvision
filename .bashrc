@@ -77,7 +77,6 @@ fi
 
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
-alias grep='grep --color=auto'
 
 alias passwd=yppasswd
 
