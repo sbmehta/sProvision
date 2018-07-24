@@ -122,13 +122,14 @@ fi
 
 
 ########## PLUGINS  ####################
-eval "$(ssh-agent -s)"
+#eval "$(ssh-agent -s)"
+#plugins=(git ssh-agent)
 
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
 
-alias insync='insync-headless'
-alias sjupyter='jupyter notebook --no-browser --port=8889 &'
+#alias insync='insync-headless'
+#alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 
 
 ########## PATH  #######################
