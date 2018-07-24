@@ -77,9 +77,7 @@ use UGER
 #use Python-2.7
 source ~/dx-toolkit/environment
 #dx login --token 1AeDbmL5hBVlsdEeqfuF9GK2Hbeq8lF3 --noprojects  # samar's admin token through 2018-08-08
-#dx select project-F5z8Jpj0Yqp6fFpXGfJVBg3b                     # LASV/FUO 15-17 project
-#dx select project-FBFkzxj0YJ80114YGQ0yJZJx                     # CLEAN LASV/FUO 15-17 project
-#dx select project-Bq29k680jy1JF3gvkk3Gjf11                      # Sabeti_Lab project
+#dx select project-Bq29k680jy1JF3gvkk3Gjf11                   # Sabeti_Lab project
 
 . /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_2.3.0-jupyter/etc/profile.d/conda.sh
 
@@ -95,6 +93,12 @@ alias passwd=yppasswd
 ########## PATH  #######################
 export PATH="$HOME/anaconda3/bin:$PATH"
 
+
+########## SSH  ########################
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+    eval `ssh-agent -s -t 1h`     # timeout in an hour
+    ssh-add
+fi
 
 ########## FINALIZE ####################
 if type "neofetch" &> /dev/null; then
