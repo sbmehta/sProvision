@@ -73,6 +73,7 @@ fi
 # On Broad servers, most of this is set up in .bashrc (and .bash_login, if not bypassed)
 use Anaconda
 use UGER
+use .google-cloud-sdk
 
 #use Python-2.7
 source ~/dx-toolkit/environment
