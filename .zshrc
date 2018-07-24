@@ -122,8 +122,10 @@ fi
 
 
 ########## PLUGINS  ####################
+#plugins=(git ssh-agent)  ### for oh-my-zsh
+
 #eval "$(ssh-agent -s)"
-#plugins=(git ssh-agent)
+
 
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
