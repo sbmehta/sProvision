@@ -46,8 +46,9 @@ fi
 
 
 ########## COMPLETION  #################
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
+shopt -s extglob
+
+# If set, the pattern "**" used in a pathname expansion context will match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
@@ -70,6 +71,17 @@ fi
 
 ########## BROAD environment  ##########
 # On Broad servers, most of this is set up in .bashrc (and .bash_login, if not bypassed)
+use Anaconda
+use UGER
+
+#use Python-2.7
+source ~/dx-toolkit/environment
+#dx login --token 1AeDbmL5hBVlsdEeqfuF9GK2Hbeq8lF3 --noprojects  # samar's admin token through 2018-08-08
+#dx select project-F5z8Jpj0Yqp6fFpXGfJVBg3b                     # LASV/FUO 15-17 project
+#dx select project-FBFkzxj0YJ80114YGQ0yJZJx                     # CLEAN LASV/FUO 15-17 project
+#dx select project-Bq29k680jy1JF3gvkk3Gjf11                      # Sabeti_Lab project
+
+. /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_2.3.0-jupyter/etc/profile.d/conda.sh
 
 
 ########## PLUGINS  ####################
