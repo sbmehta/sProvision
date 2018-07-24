@@ -1,5 +1,7 @@
 [user]
 	email = sbmehta@gmail.com
-	name = samar mehta
+	name = samarmehta
 [push]
 	default = matching
+[core]
+        editor = nano
