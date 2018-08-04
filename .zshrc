@@ -138,7 +138,7 @@ export PATH="$HOME/anaconda3/bin:$PATH"
 ########## SSH  ########################
 if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent -s -t 1h`     # timeout in an hour
-    ssh-add
+#    ssh-add
 fi
 
 ########## FINALIZE ####################
