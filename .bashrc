@@ -46,8 +46,9 @@ fi
 
 
 ########## COMPLETION  #################
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
+shopt -s extglob
+
+# If set, the pattern "**" used in a pathname expansion context will match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
@@ -70,6 +71,16 @@ fi
 
 ########## BROAD environment  ##########
 # On Broad servers, most of this is set up in .bashrc (and .bash_login, if not bypassed)
+use Anaconda
+use UGER
+use .google-cloud-sdk
+
+#use Python-2.7
+source ~/dx-toolkit/environment
+dx login --token KdkXc5iQAbziGjLXdYjm1FoZtfEkzILy --noprojects  # samar's admin token through 2018-08-08
+dx select project-FJbXjQ00yQx2zGQx4jf28yY3     # DIRTY Ng analysis project
+
+. /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_2.3.0-jupyter/etc/profile.d/conda.sh
 
 
 ########## PLUGINS  ####################
@@ -83,6 +94,12 @@ alias passwd=yppasswd
 ########## PATH  #######################
 # export PATH="$HOME/anaconda3/bin:$PATH"  # commented out by conda initialize
 
+
+########## SSH  ########################
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+    eval `ssh-agent -s -t 1h`     # timeout in an hour
+#    ssh-add
+fi
 
 ########## FINALIZE ####################
 if type "neofetch" &> /dev/null; then

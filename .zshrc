@@ -100,32 +100,34 @@ fi
 
 
 ########## BROAD environment  ##########
-if [[ -f /broad/software/dotkit/etc/systype ]]; then
-
-  # Modified from Broad's default .bashrc -- n ote this won't work for SUSE systems
-
-  # Set up dotkit
-  eval `/broad/software/dotkit/init -b`
-  
-  if [[ -o login ]]; then          # Login shells
-      if [[ "x$RUN_ONCE" == "x"  ]]; then
-          export RUN_ONCE="1"
-          # Load the default dotkits to set up basic Broad user environment
-          use -q default
-      fi
-  fi
-  
-  if [[ -o interactive ]]; then    # Interactive shells
-      use -q default++
-  fi
-fi
+#if [[ -f /broad/software/dotkit/etc/systype ]]; then
+#
+#   # Modified from Broad's default .bashrc -- n ote this won't work for SUSE systems
+#
+#   # Set up dotkit
+#    eval `/broad/software/dotkit/init -b`
+#  
+#   if [[ -o login ]]; then          # Login shells
+#       if [[ "x$RUN_ONCE" == "x"  ]]; then
+#           export RUN_ONCE="1"
+#           # Load the default dotkits to set up basic Broad user environment
+#           use -q default
+#       fi
+#   fi
+# 
+#   if [[ -o interactive ]]; then    # Interactive shells
+#       use -q default++
+#   fi
+# fi
 
 
 ########## PLUGINS  ####################
-eval "$(ssh-agent -s)"
+#plugins=(git ssh-agent)  ### for oh-my-zsh
+
 
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
+
 
 alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 
@@ -133,6 +135,11 @@ alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 ########## PATH  #######################
 export PATH="$HOME/anaconda3/bin:$PATH"
 
+########## SSH  ########################
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+    eval `ssh-agent -s -t 1h`     # timeout in an hour
+#    ssh-add
+fi
 
 ########## FINALIZE ####################
 if type "neofetch" &> /dev/null; then
