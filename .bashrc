@@ -77,8 +77,9 @@ use .google-cloud-sdk
 
 #use Python-2.7
 source ~/dx-toolkit/environment
-dx login --token KdkXc5iQAbziGjLXdYjm1FoZtfEkzILy --noprojects  # samar's admin token through 2018-08-08
-dx select project-FJbXjQ00yQx2zGQx4jf28yY3     # DIRTY Ng analysis project
+dx login --token MeMW7gjuRbuG4A4UUnqtCadlhPelm4LC --noprojects  # samar_all_20191201
+dx select project-FPgF38Q0bg5f24jb13v65Pf1     # LASV_NIG_METAGENOMICS_part_deux
+
 
 . /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_2.3.0-jupyter/etc/profile.d/conda.sh
 
