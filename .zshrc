@@ -133,7 +133,7 @@ alias ls='ls -aF --color=auto'
 
 
 ########## PATH  #######################
-export PATH="$HOME/anaconda3/bin:$HOME/.local/bin:$PATH"
+export PATH="$HOME/anaconda3/bin:$HOME/edirect:$HOME/.local/bin:$PATH"
 
 ########## DOCKER_HOST for W10 #########
 export DOCKER_HOST=tcp://localhost:2375
