@@ -102,7 +102,7 @@ fi
 ########## BROAD environment  ##########
 #if [[ -f /broad/software/dotkit/etc/systype ]]; then
 #
-#   # Modified from Broad's default .bashrc -- n ote this won't work for SUSE systems
+#   # Modified from Broad's default .bashrc -- note this won't work for SUSE systems
 #
 #   # Set up dotkit
 #    eval `/broad/software/dotkit/init -b`
@@ -133,7 +133,10 @@ alias ls='ls -aF --color=auto'
 
 
 ########## PATH  #######################
-export PATH="$HOME/anaconda3/bin:$PATH"
+export PATH="$HOME/anaconda3/bin:$HOME/.local/bin:$PATH"
+
+########## DOCKER_HOST for W10 #########
+export DOCKER_HOST=tcp://localhost:2375
 
 ########## SSH  ########################
 if [ -z "$SSH_AUTH_SOCK" ] ; then
