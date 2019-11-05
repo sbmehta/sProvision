@@ -138,6 +138,11 @@ alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 ########## PATH  #######################
 #export PATH="$HOME/anaconda3/bin:$HOME/.local/bin:$PATH"
 
+
+########## DOCKER_HOST for W10 #########
+#export DOCKER_HOST=tcp://localhost:2375
+
+
 ########## SSH  ########################
 if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent -s -t 1h`     # timeout in an hour
