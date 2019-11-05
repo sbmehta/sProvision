@@ -91,6 +91,7 @@ alias ls='ls -aF --color=auto'
 
 alias passwd=yppasswd
 
+
 ########## PATH  #######################
 # export PATH="$HOME/anaconda3/bin:$PATH"  # commented out by conda initialize
 
@@ -120,4 +121,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-

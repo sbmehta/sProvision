@@ -1,6 +1,5 @@
 # ~/.zshrc: executed by zsh(1)
 
-
 if [[ ! -o interactive ]]; then
    return                         # Insert commands for non-interactive shells here.
 fi
@@ -27,7 +26,7 @@ RPROMPT="%*"
 
 
 ########## DISPLAY #####################
-if [ -x /usr/bin/dircolors ]; then
+if [[ -x /usr/bin/dircolors ]]; then
     test -r ~/dotfiles/.dir_colors && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
 fi
 
@@ -102,7 +101,7 @@ fi
 ########## BROAD environment  ##########
 #if [[ -f /broad/software/dotkit/etc/systype ]]; then
 #
-#   # Modified from Broad's default .bashrc -- n ote this won't work for SUSE systems
+#   # Modified from Broad's default .bashrc -- note this won't work for SUSE systems
 #
 #   # Set up dotkit
 #    eval `/broad/software/dotkit/init -b`
@@ -122,6 +121,10 @@ fi
 
 
 ########## PLUGINS  ####################
+export DOCKER_HOST=tcp://localhost:2375
+
+
+########## PLUGINS  ####################
 #plugins=(git ssh-agent)  ### for oh-my-zsh
 
 
@@ -133,7 +136,7 @@ alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 
 
 ########## PATH  #######################
-export PATH="$HOME/anaconda3/bin:$PATH"
+#export PATH="$HOME/anaconda3/bin:$HOME/.local/bin:$PATH"
 
 ########## SSH  ########################
 if [ -z "$SSH_AUTH_SOCK" ] ; then
