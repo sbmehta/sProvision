@@ -70,17 +70,18 @@ fi
 
 
 ########## BROAD environment  ##########
-# On Broad servers, most of this is set up in .bashrc (and .bash_login, if not bypassed)
-use Anaconda
-use UGER
-use .google-cloud-sdk
+if [[ -d /broad ]]; then
+    use Anaconda
+    use UGER
+    use .google-cloud-sdk
 
-#use Python-2.7
-source ~/dx-toolkit/environment
-dx login --token KdkXc5iQAbziGjLXdYjm1FoZtfEkzILy --noprojects  # samar's admin token through 2018-08-08
-dx select project-FJbXjQ00yQx2zGQx4jf28yY3     # DIRTY Ng analysis project
+    #use Python-2.7
+    source ~/dx-toolkit/environment
+    dx login --token KdkXc5iQAbziGjLXdYjm1FoZtfEkzILy --noprojects  # samar's admin token through 2018-08-08
+    dx select project-FJbXjQ00yQx2zGQx4jf28yY3     # DIRTY Ng analysis project
 
-. /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_2.3.0-jupyter/etc/profile.d/conda.sh
+    . /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_2.3.0-jupyter/etc/profile.d/conda.sh
+fi
 
 
 ########## PLUGINS  ####################
@@ -106,18 +107,3 @@ fi
 if type "neofetch" &> /dev/null; then
     neofetch
 fi
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/samar/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/samar/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/samar/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/samar/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
