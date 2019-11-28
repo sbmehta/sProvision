@@ -120,7 +120,7 @@ fi
 # fi
 
 
-########## PLUGINS  ####################
+########## DOCKER_HOST for W10 #########
 export DOCKER_HOST=tcp://localhost:2375
 
 
@@ -137,10 +137,9 @@ alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 
 ########## PATH  #######################
 #export PATH="$HOME/anaconda3/bin:$HOME/.local/bin:$PATH"
-
-
-########## DOCKER_HOST for W10 #########
-#export DOCKER_HOST=tcp://localhost:2375
+if [[ -d ~/ncbi-toolkit ]] ; then
+   path+=('/home/samar/ncbi-toolkit')
+fi
 
 
 ########## SSH  ########################

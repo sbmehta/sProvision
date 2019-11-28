@@ -40,7 +40,6 @@ shopt -s checkwinsize # check win size after each command and update LINES+COLUM
 if [ -x /usr/bin/dircolors ]; then # color support for ls
     test -r ~/dotfiles/.dir_colors && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
 fi
-
 # Colorize GCC warnings and errors:
 # export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
@@ -94,7 +93,9 @@ alias passwd=yppasswd
 
 
 ########## PATH  #######################
-# export PATH="$HOME/anaconda3/bin:$PATH"  # commented out by conda initialize
+if [[ -d ~/ncbi-toolkit ]] ; then
+   export PATH=${PATH}:/home/samar/ncbi-toolkit
+fi
 
 
 ########## SSH  ########################
