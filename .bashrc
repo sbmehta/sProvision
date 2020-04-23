@@ -77,9 +77,9 @@ use .google-cloud-sdk
 
 #use Python-2.7
 source ~/dx-toolkit/environment
-dx login --token MeMW7gjuRbuG4A4UUnqtCadlhPelm4LC --noprojects  # samar_all_20191201
-dx select project-FPgF38Q0bg5f24jb13v65Pf1     # LASV_NIG_METAGENOMICS_part_deux
-
+dx login --token  gTJ25OGvoOPGbRKISuEQRuS3iPV9eNrC --noprojects  # samar_all_20200423
+#dx select project-FPgF38Q0bg5f24jb13v65Pf1     # LASV_NIG_METAGENOMICS_part_deux
+dx select project-FpJPppj0KQf5X20VBPYJX9Gp     # H3_KGH_SARS-COV-2 BATCH 2
 
 . /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_2.3.0-jupyter/etc/profile.d/conda.sh
 
