@@ -40,7 +40,6 @@ shopt -s checkwinsize # check win size after each command and update LINES+COLUM
 if [ -x /usr/bin/dircolors ]; then # color support for ls
     test -r ~/dotfiles/.dir_colors && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
 fi
-
 # Colorize GCC warnings and errors:
 # export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
@@ -70,18 +69,19 @@ fi
 
 
 ########## BROAD environment  ##########
-# On Broad servers, most of this is set up in .bashrc (and .bash_login, if not bypassed)
-use Anaconda
-use UGER
-use .google-cloud-sdk
+if [[ -d /broad ]]; then
+    use Anaconda
+    use UGER
+    use .google-cloud-sdk
 
-#use Python-2.7
-source ~/dx-toolkit/environment
-dx login --token  gTJ25OGvoOPGbRKISuEQRuS3iPV9eNrC --noprojects  # samar_all_20200423
-#dx select project-FPgF38Q0bg5f24jb13v65Pf1     # LASV_NIG_METAGENOMICS_part_deux
-dx select project-FpJPppj0KQf5X20VBPYJX9Gp     # H3_KGH_SARS-COV-2 BATCH 2
+    #use Python-2.7
+    source ~/dx-toolkit/environment
+    dx login --token  gTJ25OGvoOPGbRKISuEQRuS3iPV9eNrC --noprojects  # samar_all_20200423
+    #dx select project-FPgF38Q0bg5f24jb13v65Pf1     # LASV_NIG_METAGENOMICS_part_deux
+    dx select project-FpJPppj0KQf5X20VBPYJX9Gp     # H3_KGH_SARS-COV-2 BATCH 2
 
-. /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_2.3.0-jupyter/etc/profile.d/conda.sh
+    . /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_2.3.0-jupyter/etc/profile.d/conda.sh
+fi
 
 
 ########## PLUGINS  ####################
@@ -92,8 +92,11 @@ alias ls='ls -aF --color=auto'
 
 alias passwd=yppasswd
 
+
 ########## PATH  #######################
-export PATH="$HOME/anaconda3/bin:$PATH"
+if [[ -d ~/ncbi-toolkit ]] ; then
+   export PATH=${PATH}:/home/samar/ncbi-toolkit
+fi
 
 
 ########## SSH  ########################
