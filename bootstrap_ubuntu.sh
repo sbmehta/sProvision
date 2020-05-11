@@ -30,7 +30,8 @@ if [[ ! $(git rev-parse --is-inside-work-tree) ]] ; then
     printf "Installing provisioning script ...\n"
     git init
     git remote add origin git@github.com:sbmehta/sProvision.git
-    git pull origin master
+    git branch --set-upstream-to=origin/master master
+    git pull
 else
     git remote update
     if [[ $(git status --porcelain --untracked-files=no) ]] ; then
