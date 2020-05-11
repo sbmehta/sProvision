@@ -2,20 +2,25 @@
 
 # bootstrap_ubuntu.sh
 
-if [[ ! -f ~/.ssh/id_rsa_github ]] ; then
-   printf "ERROR: Requires private key ~/.ssh/id_rsa_github\n\n"
-   exit 1
-fi
+# Fetches my repo for customizing an Ubuntu environment to ~/sProvision
+# Intended for interactive use; will prompt passwords for id_rsa_github, sudo
 
-if [[ $(id -u) -ne 0 ]] ; then
-    printf "ERROR: Please run with root privileges\n\n"
+if [[ $(id -u) -eq 0 ]] ; then
+    printf "ERROR: Please do not call this script with root privileges\n\n"
     exit 1
 fi
 
+if [[ ! -f ~/.ssh/id_rsa_github ]] ; then
+   printf "ERROR: Requires private key ~/.ssh/id_rsa_github\n\n"
+   exit 1
+else
+   ssh-add -l | grep L5Q7R8TIRv1/cszJwSPlrLbsGzhCu+dKF2QUH2Aq2D8 || ssh-add ~/.ssh/id_rsa_github
+fi
+
 printf "Upgrading packages ..."
-#apt update
-#apt upgrade
-apt install -y git
+#sudo apt update
+#sudo apt upgrade
+sudo apt install -y git
 
 if [[ ! -d ~/sProvision ]] ; then
     mkdir ~/sProvision
@@ -27,7 +32,11 @@ if [[ ! $(git rev-parse --is-inside-work-tree) ]] ; then
     git remote add origin git@github.com:sbmehta/sProvision.git
     git pull origin master
 else
-    
+    git remote update
+    if [[ $(git status --porcelain --untracked-files=no) ]] ; then
+	printf "WARNING: local provisioning repo differs from latest. Update manually if desired."
+	exit 1
+    fi
 fi
 
 printf "Provision repo available at ~/sProvision \n"
