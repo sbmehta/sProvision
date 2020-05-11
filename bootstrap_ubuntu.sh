@@ -17,15 +17,17 @@ printf "Upgrading packages ..."
 #apt upgrade
 apt install -y git
 
-exit 1
-
-printf "Installing provisioning script ...\n"
 if [[ ! -d ~/sProvision ]] ; then
     mkdir ~/sProvision
 fi
 cd ~/sProvision
-if [[ ! git rev-parse --is-inside-work-tree ]] ; then
-    printf "Wtf."
+if [[ ! $(git rev-parse --is-inside-work-tree) ]] ; then
+    printf "Installing provisioning script ...\n"
+    git init
+    git remote add origin git@github.com:sbmehta/sProvision.git
+    git pull origin master
+else
+    
 fi
 
-printf "\n"
+printf "Provision repo available at ~/sProvision \n"
