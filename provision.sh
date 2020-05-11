@@ -6,11 +6,11 @@ case $1 in
     dotfiles)
 	echo "\n"
 	echo "Linking dotfiles ..."
-	ln -s sProvision/.zshrc      $HOME
-	ln -s sProvision/.emacs      $HOME
-	ln -s sProvision/.profile    $HOME
-	ln -s sProvision/.bashrc     $HOME
-	ln -s sProvision/.gitconfig  $HOME
+	ln -sfb ~/sProvision/.zshrc      $HOME
+	ln -sfb ~/sProvision/.emacs      $HOME
+	ln -sfb ~/sProvision/.profile    $HOME
+	ln -sfb ~/sProvision/.bashrc     $HOME
+	ln -sfb ~/sProvision/.gitconfig  $HOME
 	echo "\n"
 	;;
     ubuntu0)
