@@ -1,1 +1,1 @@
-# dotfiles
+# setup personalized Ubuntu environment
