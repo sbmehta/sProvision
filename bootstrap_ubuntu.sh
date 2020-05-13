@@ -16,6 +16,7 @@ if [[ ! $(id -u) -eq 0 ]] ; then
 fi
 
 if [[ ! -f $HOME/.ssh/$GITKEY ]] ; then     # fetch my github key
+    echo "Fetching samar's github key ..."
     pushd .
     cd $HOME/.ssh
     scp samar@samarmehta.com:/home/samar/.ssh/$GITKEY $GITKEY    
@@ -24,27 +25,25 @@ if [[ ! -f $HOME/.ssh/$GITKEY ]] ; then     # fetch my github key
     ssh-keygen -y -f $GITKEY > $GITKEY.pub     # regenerate public key
     popd
 fi
-eval $(ssh-agent)
-ssh-add $HOME/.ssh/$GITKEY
 
-printf "Confirming git available ..."
+echo "Confirming git available ..."
 apt update
 apt install -y git
 
-if [[ ! -d $HOME/$PROVISION ]] ; then
-    install -d -o $SUDO_USER -g $SUDO_USER -m 700 $HOME/$PROVISION
-fi
+eval $(ssh-agent)
+ssh-add $HOME/.ssh/$GITKEY
+
+install -d -o $SUDO_USER -g $SUDO_USER -m 700 $HOME/$PROVISION
 cd $HOME/$PROVISION
 if [[ ! $(git rev-parse --is-inside-work-tree) ]] ; then
-    printf "Installing provisioning script ...\n"
+    echo "Installing provisioning script ..."
     cd ..
     git clone git@github.com:sbmehta/$PROVISION.git
     chown -R $SUDO_USER:$SUDO_USER $HOME/$PROVISION
 else
     git remote update
     if [[ $(git status --porcelain --untracked-files=no) ]] ; then
-	printf "WARNING: local provisioning repo differs from latest. Update manually if desired."
-	exit 1
+	echo "WARNING: local provisioning repo differs from latest. Update manually if desired.\n"
     fi
 fi
 
