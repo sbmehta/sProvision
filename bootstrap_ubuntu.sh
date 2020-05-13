@@ -21,9 +21,11 @@ if [[ ! -f $HOME/.ssh/$GITKEY ]] ; then     # fetch my github key
     scp samar@samarmehta.com:/home/samar/.ssh/$GITKEY $GITKEY    
     chown $SUDO_USER:$SUDO_USER $GITKEY
     chmod 600 $HOME/.ssh/$GITKEY
-    ssh-keygen -y -f $GITKEY > $GITKEY.pub     # regen public key (confirming user knows passphrase)
+    ssh-keygen -y -f $GITKEY > $GITKEY.pub     # regenerate public key
     popd
 fi
+eval $(ssh-agent)
+ssh-add $HOME/.ssh/$GITKEY
 
 printf "Confirming git available ..."
 apt update
