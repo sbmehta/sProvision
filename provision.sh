@@ -56,7 +56,6 @@ case $1 in
 	;;
     help|*)
 	echo "provision.sh dotfiles        Link dotfiles in home directory."
-	echo "provision.sh ubuntu16        (sudo) Add private apt repos to allow "
 	echo "provision.sh ubuntu_light    (sudo) Minimal Ubuntu v>=18 stuff; ~25 MB download, ~100MB disk."
 	echo "provision.sh ubuntu_medium   (sudo) Run after ubuntu_light to add larger packages; ~280MB download, ~1GB disk."
 	echo "provision.sh help            Help string; this command."
@@ -67,3 +66,4 @@ echo
 exit 0
 
 
+# 	echo "provision.sh ubuntu16        (sudo) Add private apt repos to allow "
