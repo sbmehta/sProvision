@@ -23,10 +23,6 @@ if [[ ! -f $HOME/.ssh/$GITKEY ]] ; then     # fetch my github key
     ssh-keygen -y -f $GITKEY > $GITKEY.pub     # also regenerate public key (confirming user knows passphrase)
 fi
 
-#eval $(ssh-agent)  # find a way to do this without duplicating ssh-agent? or just require user to do it?
-#ssh-add -l | grep L5Q7R8TIRv1/cszJwSPlrLbsGzhCu+dKF2QUH2Aq2D8 || ssh-add ~/.ssh/id_rsa_github  # 
-
-
 printf "Confirming git available ..."
 apt update
 apt install -y git
