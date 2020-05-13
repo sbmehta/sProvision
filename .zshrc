@@ -1,21 +1,21 @@
 # ~/.zshrc: executed by zsh(1)
 
 if [[ ! -o interactive ]]; then
-   return                         # Insert commands for non-interactive shells here.
+   # Insert commands for non-interactive shells here.
+   return
 fi
 
 if [[ -o login ]]; then
-  echo "Login ZSH"             # Insert commands for login shells here.
+    # Insert commands to be run at login only here.
+    echo "Login ZSH"
 fi
 echo "Configuring ZSH"
-
 
 ########## HISTORY  ####################
 setopt histignorealldups sharehistory
 HISTSIZE=5000
 SAVEHIST=5000
 HISTFILE=~/.zsh_history
-
 
 ########## PROMPT  #####################
 autoload -Uz promptinit
@@ -24,12 +24,10 @@ promptinit
 PROMPT="%{$fg_bold[green]%}%n%F{white}@%F{146}%M%{$fg_no_bold[white]%}:%~> "
 RPROMPT="%*"
 
-
 ########## DISPLAY #####################
 if [[ -x /usr/bin/dircolors ]]; then
-    test -r ~/dotfiles/.dir_colors && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
+    [ -r ~/dotfiles/.dir_colors ] && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
 fi
-
 
 ########## COMPLETION  #################
 autoload -Uz compinit
@@ -97,7 +95,6 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-finish
 fi
 
-
 ########## BROAD environment  ##########
 #if [[ -f /broad/software/dotkit/etc/systype ]]; then
 #
@@ -130,7 +127,6 @@ fi
 
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
-
 #alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 
 
@@ -142,7 +138,7 @@ alias ls='ls -aF --color=auto'
 
 
 ########## SSH  ########################
-eval $(keychain --clear --timeout 60 --eval id_rsa_github)
+eval $(keychain --timeout 60 --eval id_rsa_github)
 
 #if [ -z "$SSH_AUTH_SOCK" ] ; then
 #    eval `ssh-agent -s -t 1h`     # timeout in an hour
@@ -153,6 +149,7 @@ eval $(keychain --clear --timeout 60 --eval id_rsa_github)
 if type "neofetch" &> /dev/null; then
     neofetch
 fi
+cd ~
 
 ##   __     __   __           ___
 ##  |__) | /  \ /__` \ / |\ |  |   /\  \_/

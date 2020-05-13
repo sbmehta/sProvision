@@ -3,37 +3,43 @@
 # bootstrap_ubuntu.sh
 
 # Fetches my repo for customizing an Ubuntu environment to ~/sProvision
-# Intended for interactive use; will prompt passwords for id_rsa_github, sudo
+# Intended for interactive use; will prompt password for samarmehta.com if needs to get github key
 
-if [[ $(id -u) -eq 0 ]] ; then
-    printf "ERROR: Please do not call this script with root privileges\n\n"
+GITKEY="id_rsa_github"
+PROVISION="sProvision"
+
+set -e  # exit on any error
+
+if [[ ! $(id -u) -eq 0 ]] ; then
+    echo "ERROR: Please call this script as root." 1>&2
     exit 1
 fi
 
-if [[ ! -f ~/.ssh/id_rsa_github ]] ; then
-    printf "ERROR: Requires my private key:"
-    printf "       scp samar@samarmehta.com:/home/samar/.ssh/id_rsa_github ~/.ssh"
-    exit 1
-else
-    eval $(ssh-agent)
-    ssh-add ~/.ssh/id_rsa_github
-   #ssh-add -l | grep L5Q7R8TIRv1/cszJwSPlrLbsGzhCu+dKF2QUH2Aq2D8 || ssh-add ~/.ssh/id_rsa_github
+
+if [[ ! -f $HOME/.ssh/$GITKEY ]] ; then     # fetch my github key
+    scp samar@samarmehta.com:/home/samar/.ssh/$GITKEY $HOME/.ssh/$GITKEY    
+    chown $SUDO_USER:$SUDO_USER $GITKEY
+    chmod 600 $GITKEY
+    ssh-keygen -y -f $GITKEY > $GITKEY.pub     # also regenerate public key (confirming user knows passphrase)
 fi
 
-printf "Upgrading packages ..."
-sudo apt update
-sudo apt upgrade
-sudo apt install -y git
+#eval $(ssh-agent)  # find a way to do this without duplicating ssh-agent? or just require user to do it?
+#ssh-add -l | grep L5Q7R8TIRv1/cszJwSPlrLbsGzhCu+dKF2QUH2Aq2D8 || ssh-add ~/.ssh/id_rsa_github  # 
 
 
-if [[ ! -d ~/sProvision ]] ; then
-    mkdir ~/sProvision
+printf "Confirming git available ..."
+apt update
+apt install -y git
+
+if [[ ! -d $HOME/$PROVISION ]] ; then
+    install -d -o $SUDO_USER -g $SUDO_USER -m 700 $HOME/$PROVISION
 fi
-cd ~/sProvision
+cd $HOME/$PROVISION
 if [[ ! $(git rev-parse --is-inside-work-tree) ]] ; then
     printf "Installing provisioning script ...\n"
     cd ..
-    git clone git@github.com:sbmehta/sProvision.git
+    git clone git@github.com:sbmehta/$PROVISION.git
+    chown -R $SUDO_USER:$SUDO_USER $HOME/$PROVISION
 else
     git remote update
     if [[ $(git status --porcelain --untracked-files=no) ]] ; then
@@ -42,4 +48,4 @@ else
     fi
 fi
 
-printf "Provision repo available at ~/sProvision \n"
+echo "Provision repo available at ~/$PROVISION"

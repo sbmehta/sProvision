@@ -14,18 +14,21 @@ echo
 case $1 in
     dotfiles)
 	echo "Linking dotfiles ..."
-	ln -sfb sProvision/.zshrc      $HOME
-	ln -sfb sProvision/.emacs      $HOME
-	ln -sfb sProvision/.profile    $HOME
-	ln -sfb sProvision/.bashrc     $HOME
-	ln -sfb sProvision/.gitconfig  $HOME
+	ln -sfb $HOME/sProvision/.zshrc      $HOME
+	ln -sfb $HOME/sProvision/.emacs      $HOME
+	ln -sfb $HOME/sProvision/.profile    $HOME
+	ln -sfb $HOME/sProvision/.bashrc     $HOME
+	ln -sfb $HOME/sProvision/.gitconfig  $HOME
+	;;
+    ssh)
+        ln -sfb $HOME/sProvision/config      $HOME/.ssh
 	;;
     ubuntu_light)
 	assert_root
 	apt update && apt upgrade
 	apt install -y zsh                           # preferred environment
 	apt install -y curl wget                     # data transfer
-	apt install -y neofetch                      # misc utilities
+	apt install -y neofetch keychain             # misc utilities
 	
 	chsh -s '/bin/zsh' "${USER}"
 	;;
@@ -51,11 +54,13 @@ case $1 in
 	apt install -y software-properties-common    # tools for adding/removing PPAs
 		
 	add-apt-respository -y ppa:biosyntax/ppa     # prettification
+	apt update
 	apt install -y biosyntax-less
 	
 	;;
     help|*)
-	echo "provision.sh dotfiles        Link dotfiles in home directory."
+	echo "provision.sh dotfiles        Link dotfiles in home directory to this repo."
+	echo "provision.sh ssh             Link .ssh config to this repo."
 	echo "provision.sh ubuntu_light    (sudo) Minimal Ubuntu v>=18 stuff; ~25 MB download, ~100MB disk."
 	echo "provision.sh ubuntu_medium   (sudo) Run after ubuntu_light to add larger packages; ~280MB download, ~1GB disk."
 	echo "provision.sh help            Help string; this command."
