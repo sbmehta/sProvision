@@ -15,12 +15,14 @@ if [[ ! $(id -u) -eq 0 ]] ; then
     exit 1
 fi
 
-
 if [[ ! -f $HOME/.ssh/$GITKEY ]] ; then     # fetch my github key
-    scp samar@samarmehta.com:/home/samar/.ssh/$GITKEY $HOME/.ssh/$GITKEY    
+    pushd .
+    cd $HOME/.ssh
+    scp samar@samarmehta.com:/home/samar/.ssh/$GITKEY $GITKEY    
     chown $SUDO_USER:$SUDO_USER $GITKEY
-    chmod 600 $GITKEY
-    ssh-keygen -y -f $GITKEY > $GITKEY.pub     # also regenerate public key (confirming user knows passphrase)
+    chmod 600 $HOME/.ssh/$GITKEY
+    ssh-keygen -y -f $GITKEY > $GITKEY.pub     # regen public key (confirming user knows passphrase)
+    popd
 fi
 
 printf "Confirming git available ..."
