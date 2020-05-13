@@ -121,7 +121,7 @@ fi
 
 
 ########## DOCKER_HOST for W10 #########
-export DOCKER_HOST=tcp://localhost:2375
+#export DOCKER_HOST=tcp://localhost:2375
 
 
 ########## PLUGINS  ####################
@@ -131,27 +131,29 @@ export DOCKER_HOST=tcp://localhost:2375
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
 
-
-alias sjupyter='jupyter notebook --no-browser --port=8889 &'
+#alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 
 
 ########## PATH  #######################
 #export PATH="$HOME/anaconda3/bin:$HOME/.local/bin:$PATH"
-if [[ -d ~/ncbi-toolkit ]] ; then
-   path+=('/home/samar/ncbi-toolkit')
-fi
+#if [[ -d ~/ncbi-toolkit ]] ; then
+#   path+=('/home/samar/ncbi-toolkit')
+#fi
 
 
 ########## SSH  ########################
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-    eval `ssh-agent -s -t 1h`     # timeout in an hour
+eval $(keychain --clear --timeout 60 --eval id_rsa_github)
+
+#if [ -z "$SSH_AUTH_SOCK" ] ; then
+#    eval `ssh-agent -s -t 1h`     # timeout in an hour
 #    ssh-add
-fi
+#fi
 
 ########## FINALIZE ####################
 if type "neofetch" &> /dev/null; then
     neofetch
 fi
+
 ##   __     __   __           ___
 ##  |__) | /  \ /__` \ / |\ |  |   /\  \_/
 ##  |__) | \__/ .__/  |  | \|  |  /~~\ / \
@@ -168,7 +170,7 @@ export HIGHLIGHT="/usr/share/source-highlight"
 export LESSOPEN="| $HIGHLIGHT/src-hilite-lesspipe-bio.sh %s"
 export LESS=" -R "
 
-alias less='less -NSi -# 10'
+alias lessbio='less -NSi -# 10'
 #	-N: add line numbers
 #	-S: don't wrap lines (force to single line)
 #	-# 10: Horizontal scroll distance
@@ -176,16 +178,16 @@ alias less='less -NSi -# 10'
 # Explicit call of  <file format>-less for piping data
 # i.e:  samtools view -h aligned_hits.bam | sam-less
 # Core syntaxes (default)
-alias clustal-less='source-highlight -f esc --lang-def=$HIGHLIGHT/clustal.lang --outlang-def=$HIGHLIGHT/bioSyntax.outlang     --style-file=$HIGHLIGHT/fasta.style | less'
-alias bed-less='source-highlight     -f esc --lang-def=$HIGHLIGHT/bed.lang     --outlang-def=$HIGHLIGHT/bioSyntax.outlang     --style-file=$HIGHLIGHT/sam.style   | less'
-alias fa-less='source-highlight      -f esc --lang-def=$HIGHLIGHT/fasta.lang   --outlang-def=$HIGHLIGHT/bioSyntax.outlang     --style-file=$HIGHLIGHT/fasta.style | less'
-alias fq-less='source-highlight      -f esc --lang-def=$HIGHLIGHT/fastq.lang   --outlang-def=$HIGHLIGHT/bioSyntax.outlang     --style-file=$HIGHLIGHT/fasta.style | less'
-alias gtf-less='source-highlight     -f esc --lang-def=$HIGHLIGHT/gtf.lang     --outlang-def=$HIGHLIGHT/bioSyntax-vcf.outlang --style-file=$HIGHLIGHT/vcf.style   | less'
-alias pdb-less='source-highlight     -f esc --lang-def=$HIGHLIGHT/pdb.lang     --outlang-def=$HIGHLIGHT/bioSyntax-vcf.outlang --style-file=$HIGHLIGHT/pdb.style   | less'
-alias sam-less='source-highlight     -f esc --lang-def=$HIGHLIGHT/sam.lang     --outlang-def=$HIGHLIGHT/bioSyntax.outlang     --style-file=$HIGHLIGHT/sam.style   | less'
-alias vcf-less='source-highlight     -f esc --lang-def=$HIGHLIGHT/vcf.lang     --outlang-def=$HIGHLIGHT/bioSyntax-vcf.outlang --style-file=$HIGHLIGHT/vcf.style   | less'
+alias clustal-less='source-highlight -f esc --lang-def=$HIGHLIGHT/clustal.lang --outlang-def=$HIGHLIGHT/bioSyntax.outlang     --style-file=$HIGHLIGHT/fasta.style | lessbio'
+alias bed-less='source-highlight     -f esc --lang-def=$HIGHLIGHT/bed.lang     --outlang-def=$HIGHLIGHT/bioSyntax.outlang     --style-file=$HIGHLIGHT/sam.style   | lessbio'
+alias fa-less='source-highlight      -f esc --lang-def=$HIGHLIGHT/fasta.lang   --outlang-def=$HIGHLIGHT/bioSyntax.outlang     --style-file=$HIGHLIGHT/fasta.style | lessbio'
+alias fq-less='source-highlight      -f esc --lang-def=$HIGHLIGHT/fastq.lang   --outlang-def=$HIGHLIGHT/bioSyntax.outlang     --style-file=$HIGHLIGHT/fasta.style | lessbio'
+alias gtf-less='source-highlight     -f esc --lang-def=$HIGHLIGHT/gtf.lang     --outlang-def=$HIGHLIGHT/bioSyntax-vcf.outlang --style-file=$HIGHLIGHT/vcf.style   | lessbio'
+alias pdb-less='source-highlight     -f esc --lang-def=$HIGHLIGHT/pdb.lang     --outlang-def=$HIGHLIGHT/bioSyntax-vcf.outlang --style-file=$HIGHLIGHT/pdb.style   | lessbio'
+alias sam-less='source-highlight     -f esc --lang-def=$HIGHLIGHT/sam.lang     --outlang-def=$HIGHLIGHT/bioSyntax.outlang     --style-file=$HIGHLIGHT/sam.style   | lessbio'
+alias vcf-less='source-highlight     -f esc --lang-def=$HIGHLIGHT/vcf.lang     --outlang-def=$HIGHLIGHT/bioSyntax-vcf.outlang --style-file=$HIGHLIGHT/vcf.style   | lessbio'
 alias bam-less='sam-less'
 
 # Auxillary syntaxes (uncomment to activate)
-alias fai-less='source-highlight      -f esc --lang-def=$HIGHLIGHT/faidx.lang    --outlang-def=$HIGHLIGHT/bioSyntax.outlang   --style-file=$HIGHLIGHT/sam.style   | less'
-alias flagstat-less='source-highlight -f esc --lang-def=$HIGHLIGHT/flagstat.lang --outlang-def=$HIGHLIGHT/bioSyntax.outlang   --style-file=$HIGHLIGHT/sam.style   | less'
+#alias fai-less='source-highlight      -f esc --lang-def=$HIGHLIGHT/faidx.lang    --outlang-def=$HIGHLIGHT/bioSyntax.outlang   --style-file=$HIGHLIGHT/sam.style   | lessbio'
+#alias flagstat-less='source-highlight -f esc --lang-def=$HIGHLIGHT/flagstat.lang --outlang-def=$HIGHLIGHT/bioSyntax.outlang   --style-file=$HIGHLIGHT/sam.style   | lessbio'
