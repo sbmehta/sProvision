@@ -10,8 +10,8 @@ PROVISION="sProvision"
 
 set -e  # exit on any error
 
-if [[ ! $(id -u) -eq 0 ]] || [[ -z "$SUDO_USER" ]] ; then
-    echo "ERROR: Please call this script using sudo."
+if [[ ! $(id -u) -eq 0 ]] ; then
+    echo "ERROR: This script requires root privileges."
     exit 1
 fi
 
