@@ -12,15 +12,13 @@ assert_root() {
 echo
 
 case $1 in
-    dotfiles)
+    linkconfig)
 	echo "Linking dotfiles ..."
 	ln -sfb $HOME/sProvision/.zshrc      $HOME
 	ln -sfb $HOME/sProvision/.emacs      $HOME
 	ln -sfb $HOME/sProvision/.profile    $HOME
 	ln -sfb $HOME/sProvision/.bashrc     $HOME
 	ln -sfb $HOME/sProvision/.gitconfig  $HOME
-	;;
-    ssh)
         ln -sfb $HOME/sProvision/config      $HOME/.ssh
 	;;
     ubuntu_light)
@@ -46,21 +44,24 @@ case $1 in
 	fi
 	bash miniconda.sh -b -p $HOME/miniconda
 	rm miniconda.sh
-	source $HOME/miniconda/bin/activate
-	conda init
-	
-	apt install -y emacs gcc make                # dev toolchain
+
+	apt install -y gcc make                      # dev toolchain
+	apt install -y docker emacs
 	apt install -y certbot ca-certificates       # certificates
 	apt install -y software-properties-common    # tools for adding/removing PPAs
-		
+	apt install -y apt-transport-https
+	
 	add-apt-respository -y ppa:biosyntax/ppa     # prettification
 	apt update
 	apt install -y biosyntax-less
+
+	
+	source $HOME/miniconda/bin/activate
+	conda init
 	
 	;;
     help|*)
-	echo "provision.sh dotfiles        Link dotfiles in home directory to this repo."
-	echo "provision.sh ssh             Link .ssh config to this repo."
+	echo "provision.sh linkconfig      Link home dir dotfiles, .ssh config to this repo."
 	echo "provision.sh ubuntu_light    (sudo) Minimal Ubuntu v>=18 stuff; ~25 MB download, ~100MB disk."
 	echo "provision.sh ubuntu_medium   (sudo) Run after ubuntu_light to add larger packages; ~280MB download, ~1GB disk."
 	echo "provision.sh help            Help string; this command."

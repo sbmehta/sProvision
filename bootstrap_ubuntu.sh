@@ -18,6 +18,7 @@ fi
 if [[ ! -f $HOME/.ssh/$GITKEY ]] ; then     # fetch my github key
     echo "Fetching samar's github key ..."
     pushd .
+    install -d -o $SUDO_USER -g $SUDO_USER -m 700 $HOME/.ssh
     cd $HOME/.ssh
     scp samar@samarmehta.com:/home/samar/.ssh/$GITKEY $GITKEY    
     chown $SUDO_USER:$SUDO_USER $GITKEY
