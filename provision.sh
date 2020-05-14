@@ -14,11 +14,13 @@ echo
 case $1 in
     linkconfig)  # should these be source'd instead of symlinked to allow local mods?
 	echo "Linking dotfiles ..."
-	ln -sfb $HOME/sProvision/.zshrc      $HOME
-	ln -sfb $HOME/sProvision/.emacs      $HOME
-	ln -sfb $HOME/sProvision/.profile    $HOME
 	ln -sfb $HOME/sProvision/.bashrc     $HOME
+	ln -sfb $HOME/sProvision/.emacs      $HOME
 	ln -sfb $HOME/sProvision/.gitconfig  $HOME
+	ln -sfb $HOME/sProvision/.profile    $HOME
+	ln -sfb $HOME/sProvision/.zshrc      $HOME
+	ln -sfb $HOME/sProvision/.p10k.zsh   $HOME
+
         ln -sfb $HOME/sProvision/sshconfig   $HOME/.ssh/config
 	;;
     ubuntu_light)
