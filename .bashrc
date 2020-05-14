@@ -8,9 +8,9 @@ case $- in
 esac
 
 if shopt -q login_shell; then # Insert commands for login shells here
-  echo "Redirect from BASH"
-  export SHELL=/bin/zsh  
-  exec /bin/zsh -l
+#  echo "Redirect from BASH"
+#  export SHELL=/bin/zsh  
+#  exec /bin/zsh -l
 fi
 
 echo "Configure BASH"
@@ -40,9 +40,6 @@ shopt -s checkwinsize # check win size after each command and update LINES+COLUM
 if [ -x /usr/bin/dircolors ]; then # color support for ls
     test -r ~/dotfiles/.dir_colors && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
 fi
-# Colorize GCC warnings and errors:
-# export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
 
 ########## COMPLETION  #################
 shopt -s extglob
@@ -94,15 +91,14 @@ alias passwd=yppasswd
 
 
 ########## PATH  #######################
-if [[ -d ~/ncbi-toolkit ]] ; then
-   export PATH=${PATH}:/home/samar/ncbi-toolkit
-fi
+#if [[ -d ~/ncbi-toolkit ]] ; then
+#   export PATH=${PATH}:/home/samar/ncbi-toolkit
+#fi
 
 
 ########## SSH  ########################
 if [ -z "$SSH_AUTH_SOCK" ] ; then
     eval `ssh-agent -s -t 1h`     # timeout in an hour
-#    ssh-add
 fi
 
 ########## FINALIZE ####################

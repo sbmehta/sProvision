@@ -38,7 +38,7 @@ zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select
-eval "$(dircolors -b)"
+# eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -120,14 +120,8 @@ fi
 ########## DOCKER_HOST for W10 #########
 #export DOCKER_HOST=tcp://localhost:2375
 
-
-########## PLUGINS  ####################
-#plugins=(git ssh-agent)  ### for oh-my-zsh
-
-
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
-#alias sjupyter='jupyter notebook --no-browser --port=8889 &'
 
 
 ########## PATH  #######################
