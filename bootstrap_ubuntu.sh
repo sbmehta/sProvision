@@ -11,7 +11,7 @@ PROVISION="sProvision"
 set -e  # exit on any error
 
 if [[ ! $(id -u) -eq 0 ]] ; then
-    echo "ERROR: Please call this script as root." 1>&2
+    echo "ERROR: Please call this script using sudo."
     exit 1
 fi
 
