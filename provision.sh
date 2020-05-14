@@ -32,7 +32,7 @@ case $1 in
 	
 	chsh -s '/bin/zsh' "${USER}"
 
-	echo "Note: Cchanges to wsl.conf require rebooting the distro.")
+	echo "Note: Changes to wsl.conf require rebooting the distro."
 	;;
     ubuntu_medium)
 	assert_root
