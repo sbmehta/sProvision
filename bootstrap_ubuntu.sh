@@ -21,10 +21,9 @@ if [[ ! -f $HOME/.ssh/$GITKEY ]] ; then     # fetch my github key
     install -d -o $SUDO_USER -g $SUDO_USER -m 700 $HOME/.ssh
     cd $HOME/.ssh
     scp samar@samarmehta.com:/home/samar/.ssh/$GITKEY $GITKEY    
-    chown $SUDO_USER:$SUDO_USER $GITKEY
-    chmod 600 $HOME/.ssh/$GITKEY
     ssh-keygen -y -f $GITKEY > $GITKEY.pub     # regenerate public key
-    chmod 600 $HOME/.ssh/$GITKEY.pub
+    chown $SUDO_USER:$SUDO_USER $GITKEY $GITKEY.pub
+    chmod 600 $GITKEY $GITKEY.pub
     popd 1> /dev/null
 fi
 
