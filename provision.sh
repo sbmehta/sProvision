@@ -12,7 +12,7 @@ assert_root() {
 echo
 
 case $1 in
-    linkconfig)
+    linkconfig)  # should these be source'd instead of symlinked to allow local mods?
 	echo "Linking dotfiles ..."
 	ln -sfb $HOME/sProvision/.zshrc      $HOME
 	ln -sfb $HOME/sProvision/.emacs      $HOME
@@ -31,6 +31,8 @@ case $1 in
 	cat wsl.conf >> /etc/wsl.conf  # simple defaults; no effect if not on wsl
 	
 	chsh -s '/bin/zsh' "${USER}"
+
+	echo "Note: Cchanges to wsl.conf require rebooting the distro.")
 	;;
     ubuntu_medium)
 	assert_root
@@ -47,6 +49,7 @@ case $1 in
 	bash miniconda.sh -b -p $HOME/miniconda
 	rm miniconda.sh
 
+	apt update
 	apt install -y gcc make                      # dev toolchain
 	apt install -y docker emacs
 	apt install -y certbot ca-certificates       # certificates
@@ -57,9 +60,8 @@ case $1 in
 	apt update
 	apt install -y biosyntax-less
 
-	
 	source $HOME/miniconda/bin/activate
-	conda init
+	conda init zsh
 	
 	;;
     help|*)

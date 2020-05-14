@@ -3,7 +3,7 @@
 # bootstrap_ubuntu.sh
 
 # Fetches my repo for customizing an Ubuntu environment to ~/sProvision
-# Intended for interactive use
+# Call as sudo (not directly as root). Interactive; will ask for multiple passwords.
 
 GITKEY="id_rsa_github"
 PROVISION="sProvision"
