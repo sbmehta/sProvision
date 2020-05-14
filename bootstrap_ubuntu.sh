@@ -10,7 +10,7 @@ PROVISION="sProvision"
 
 set -e  # exit on any error
 
-if [[ ! $(id -u) -eq 0 ]] ; then
+if [[ ! $(id -u) -eq 0 ]] || [[ ! -z "$SUDO_USER" ]] ; then
     echo "ERROR: Please call this script using sudo."
     exit 1
 fi
