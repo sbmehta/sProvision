@@ -1,11 +1,11 @@
+# ~/.zshrc: executed by zsh(1)
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.            
 # Initialization code that may require console input (password prompts, [y/n]               
 # confirmations, etc.) must go above this block; everything else may go below.              
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then      
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"               
 fi                                                                                          
-
-# ~/.zshrc: executed by zsh(1)
 
 if [[ ! -o interactive ]]; then
    # Insert commands for non-interactive shells here.
@@ -24,7 +24,7 @@ HISTSIZE=5000
 SAVEHIST=5000
 HISTFILE=~/.zsh_history
 
-########## PROMPT  #####################
+########## PROMPT (if Powerlevel10k fails)
 autoload -Uz promptinit
 autoload -U colors && colors
 promptinit
@@ -124,54 +124,27 @@ fi
 # fi
 
 
-########## DOCKER_HOST for W10 #########
-#export DOCKER_HOST=tcp://localhost:2375
-
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
 
-
 ########## PATH  #######################
-#export PATH="$HOME/anaconda3/bin:$HOME/.local/bin:$PATH"
-#if [[ -d ~/ncbi-toolkit ]] ; then
-#   path+=('/home/samar/ncbi-toolkit')
-#fi
-
+#export PATH="$HOME/.local/bin:$PATH"
 
 ########## SSH  ########################
 eval $(keychain --timeout 60 --eval id_rsa_github)
 
+## without using keychain: (though this doesn't reuse agents)
 #if [ -z "$SSH_AUTH_SOCK" ] ; then
-#    eval `ssh-agent -s -t 1h`     # timeout in an hour
+#    eval `ssh-agent -s -t 1h`
 #    ssh-add
 #fi
 
-########## FINALIZE ####################
-if type "neofetch" &> /dev/null; then
-    neofetch
-fi
-cd ~
-
-##   __     __   __           ___
-##  |__) | /  \ /__` \ / |\ |  |   /\  \_/
-##  |__) | \__/ .__/  |  | \|  |  /~~\ / \
-##  =======================================
-##
-## Syntax Highlighting for computational biology rc.append
-## v0.1
-##
-## Append this to your ~/.zshrc & ~/.bashrc
-## to enable source-highlight for less and add
-## bioSyntax pipe capability on your command line
-##
+########## Biosyntax ###################
 export HIGHLIGHT="/usr/share/source-highlight"
 export LESSOPEN="| $HIGHLIGHT/src-hilite-lesspipe-bio.sh %s"
 export LESS=" -R "
 
 alias lessbio='less -NSi -# 10'
-#	-N: add line numbers
-#	-S: don't wrap lines (force to single line)
-#	-# 10: Horizontal scroll distance
 
 # Explicit call of  <file format>-less for piping data
 # i.e:  samtools view -h aligned_hits.bam | sam-less
@@ -189,3 +162,15 @@ alias bam-less='sam-less'
 # Auxillary syntaxes (uncomment to activate)
 #alias fai-less='source-highlight      -f esc --lang-def=$HIGHLIGHT/faidx.lang    --outlang-def=$HIGHLIGHT/bioSyntax.outlang   --style-file=$HIGHLIGHT/sam.style   | lessbio'
 #alias flagstat-less='source-highlight -f esc --lang-def=$HIGHLIGHT/flagstat.lang --outlang-def=$HIGHLIGHT/bioSyntax.outlang   --style-file=$HIGHLIGHT/sam.style   | lessbio'
+
+
+########## POWERLEVEL10k ###############
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+
+########## FINALIZE ####################
+if type "neofetch" &> /dev/null; then
+    neofetch
+fi
+cd ~

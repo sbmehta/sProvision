@@ -39,6 +39,8 @@ case $1 in
     ubuntu_medium)
 	assert_root
 
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+	
 	# Start with Miniconda
 	cd $HOME
 	VERSION="Miniconda3-py37_4.8.2-Linux-x86_64.sh"
