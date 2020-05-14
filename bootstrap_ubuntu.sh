@@ -24,6 +24,7 @@ if [[ ! -f $HOME/.ssh/$GITKEY ]] ; then     # fetch my github key
     chown $SUDO_USER:$SUDO_USER $GITKEY
     chmod 600 $HOME/.ssh/$GITKEY
     ssh-keygen -y -f $GITKEY > $GITKEY.pub     # regenerate public key
+    chmod 600 $HOME/.ssh/$GITKEY.pub
     popd 1> /dev/null
 fi
 
