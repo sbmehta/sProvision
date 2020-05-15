@@ -64,7 +64,15 @@ case $1 in
 	apt update
 	apt install -y biosyntax-less
 
+
 	source $HOME/miniconda/bin/activate
+	conda config --add channels defaults
+	conda config --add channels bioconda
+	conda config --add channels conda-forge
+        conda update -y conda
+	conda update -y --all
+	conda clean -y --all
+	
 	conda init zsh
 	
 	;;
