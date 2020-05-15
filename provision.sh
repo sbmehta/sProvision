@@ -73,12 +73,12 @@ case $1 in
 	conda update -y --all
 	conda clean -y --all
 	
-	conda init zsh
+	#conda init zsh      # i think i already included all this in .zshrc?
 	
 	;;
     help|*)
 	echo "provision.sh linkconfig      (user) Link home dir dotfiles, .ssh config to this repo."
-	echo "provision.sh ubuntu_light    (sudo) Minimal Ubuntu v>=18 stuff; ~25 MB download, ~100MB disk. Also sets user shell to zsh & adds /etc/wsl.conf default settings."
+	echo "provision.sh ubuntu_light    (sudo) Minimal Ubuntu v>=18 stuff; ~5-25 MB download, ~15-100MB disk. Sets $SUDO_USER shell to zsh & adds /etc/wsl.conf default settings."
 	echo "provision.sh ubuntu_medium   (sudo) Run after ubuntu_light to add larger packages; ~280MB download, ~1GB disk."
 	echo "provision.sh help            Help string; this command."
 	;;
