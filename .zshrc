@@ -25,9 +25,8 @@ SAVEHIST=5000
 HISTFILE=~/.zsh_history
 
 ########## PROMPT (if Powerlevel10k fails)
-autoload -Uz promptinit
 autoload -U colors && colors
-promptinit
+autoload -Uz promptinit && promptinit
 PROMPT="%{$fg_bold[green]%}%n%F{white}@%F{146}%M%{$fg_no_bold[white]%}:%~> "
 RPROMPT="%*"
 
@@ -37,11 +36,12 @@ if [[ -x /usr/bin/dircolors ]]; then
 fi
 
 ########## COMPLETION  #################
-autoload -Uz compinit
-compinit -u
+fpath+=$HOME/.config/conda-zsh-completion
+autoload -Uz compinit && compinit -u
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select
@@ -57,6 +57,8 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+zstyle ":conda_zsh_completion:*" use-groups true
 
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo

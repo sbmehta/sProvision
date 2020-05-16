@@ -39,7 +39,7 @@ case $1 in
     ubuntu_medium)
 	assert_root
 
-	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerlevel10k
 	
 	# Start with Miniconda
 	cd $HOME
@@ -72,6 +72,10 @@ case $1 in
         conda update -y conda
 	conda update -y --all
 	conda clean -y --all
+
+	mkdir -p $HOME/.config
+	cd $HOME/.config
+	git clone https://github.com/esc/conda-zsh-completion
 	
 	#conda init zsh      # i think i already included all this in .zshrc?
 	
