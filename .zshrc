@@ -37,6 +37,7 @@ fi
 
 ########## COMPLETION  #################
 fpath+=$HOME/.config/conda-zsh-completion
+fpath+=$HOME/.config/docker-zsh-completion
 autoload -Uz compinit && compinit -u
 
 zstyle ':completion:*' auto-description 'specify: %d'

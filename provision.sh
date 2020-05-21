@@ -55,15 +55,19 @@ case $1 in
 
 	apt update
 	apt install -y gcc make                      # dev toolchain
-	apt install -y docker emacs
+	apt install -y emacs
 	apt install -y certbot ca-certificates       # certificates
 	apt install -y software-properties-common    # tools for adding/removing PPAs
 	apt install -y apt-transport-https
+
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	sudo apt update
+	sudo apt install docker-ce
 	
-	add-apt-respository -y ppa:biosyntax/ppa     # prettification
+	add-apt-repository -y ppa:biosyntax/ppa     # prettification
 	apt update
 	apt install -y biosyntax-less
-
 
 	source $HOME/miniconda/bin/activate
 	conda config --add channels defaults
@@ -76,6 +80,9 @@ case $1 in
 	mkdir -p $HOME/.config
 	cd $HOME/.config
 	git clone https://github.com/esc/conda-zsh-completion
+
+	mkdir $HOME/.config/docker-zsh-completion
+	curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/zsh/_docker > $HOME/.config/docker-zsh-completion/_docker	
 	
 	#conda init zsh      # i think i already included all this in .zshrc?
 	
