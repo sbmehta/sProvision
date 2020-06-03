@@ -168,9 +168,9 @@ alias bam-less='sam-less'
 
 
 ########## POWERLEVEL10k ###############
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+[[ -d "$HOME/powerlevel10k" ]] && source "$HOME/powerlevel10k/powerlevel10k.zsh-theme"
 
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 
 ########## FINALIZE ####################
 if type "neofetch" &> /dev/null; then
