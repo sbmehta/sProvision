@@ -9,19 +9,20 @@ echo
 assert_user() {
     case $1 in
 	root)
-	    if [ $UID -ne 0 ] && [ $EUID -ne 0 ] ; then
+	    if [ "$UID" -ne 0 ] && [ "$EUID" -ne 0 ] ; then
 		echo "ERROR: must be run with root privileges."
 		exit 1
 	    fi	    
 	    ;;
 	user)
-	    if [ $UID -eq 0 ] || [ $EUID -eq 0 ] ; then
+	    if [ "$UID" -eq 0 ] || [ "$EUID" -eq 0 ] ; then
 		echo "ERROR: can not be run with root privileges."
 		exit 1
 	    fi
 	    ;;
 	sudo)
-	    if [ $EUID -ne 0 ] || [ -z $SUDO_USER ] ; then  # confusing but seems EUID is 0 if called as sudo?
+	    echo "$SUDO_USER"
+	    if [ "$EUID" -ne 0 ] || [ -z "$SUDO_USER" ] ; then  # EUID is 0 even if called as sudo?
 		echo "ERROR: must be called using sudo from a user account."
 		exit 1
 	    fi
@@ -32,7 +33,7 @@ assert_user() {
 
 case $1 in
     test)
-	assert_user "user"
+	assert_user "sudo"
 	;;
     
     bootstrap)   # call as sudo from desired uer account (not directly as root); interactive asks for passwords
