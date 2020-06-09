@@ -8,6 +8,7 @@ case $- in
 esac
 
 if shopt -q login_shell; then # Insert commands for login shells here
+    echo "Login shell section ..."
 #  echo "Redirect from BASH"
 #  export SHELL=/bin/zsh  
 #  exec /bin/zsh -l
