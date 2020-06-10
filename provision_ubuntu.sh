@@ -93,12 +93,13 @@ case $1 in
     
     setup_first)
 	assert_user "root"
-	apt update && apt upgrade
+	apt update && apt upgrade -y
 	apt install -y zsh                           # preferred environment
 	apt install -y curl wget                     # data transfer
 	apt install -y neofetch keychain             # misc utilities
-
-	cat wsl.conf >> /etc/wsl.conf  # simple defaults; no effect if not on wsl
+	apt autoclean && apt autoremove
+	
+	cat $HOME/sProvision/wsl.conf >> /etc/wsl.conf  # simple defaults; no effect if not on wsl
 	
 	chsh -s '/bin/zsh' "${USER}"
 
@@ -107,11 +108,10 @@ case $1 in
     
     setup_second)
 	assert_user "root"
-	# 
 
 	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerlevel10k
 	
-	apt update
+	apt update && apt upgrade -y
 	apt install -y gcc make                      # dev toolchain
 	apt install -y emacs
 	apt install -y certbot ca-certificates       # certificates
@@ -119,9 +119,9 @@ case $1 in
 	apt install -y apt-transport-https
 
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-	sudo apt update
-	sudo apt -y install docker-ce
+	add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	apt update
+	apt -y install docker-ce
 	
 	add-apt-repository -y ppa:biosyntax/ppa     # prettification
 	apt update
