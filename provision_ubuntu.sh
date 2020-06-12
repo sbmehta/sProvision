@@ -43,18 +43,22 @@ case $1 in
 	GITKEY="id_rsa_github"
 	PROVISION="sProvision"
 
-	echo "Enter LOCAL sudo password to confirm git available ..."
+	echo
+	echo "Enter LOCAL sudo password to make sure git up to date ..."
 	sudo apt update
 	sudo apt install -y git
 	sudo apt clean
 
+	echo
 	echo "Enter SAMAR@SAMARMEHTA.COM password to fetch samar's github key ..."
 	rsync samar@samarmehta.com:/home/samar/.ssh/id_rsa_github\{,.pub\} $HOME/.ssh
 
+	echo
  	echo "Enter samar's ID_RSA_GITHUB password to use github key ..."
 	eval $(ssh-agent)
 	ssh-add $HOME/.ssh/$GITKEY
 
+	echo
 	echo "Installing provisioning script ..."
 	if [[ -d $HOME/$PROVISION ]]; then     # if already there, offer to delete
 	    read -p "Overwrite existing data at ~/$PROVISION?" confirm
@@ -95,7 +99,7 @@ case $1 in
 	
 	cat $HOME/sProvision/wsl.conf >> /etc/wsl.conf  # simple defaults; no effect if not on wsl
 	
-	chsh -s '/bin/zsh' "${USER}"
+cd 	chsh -s '/bin/zsh' "${USER}"
 
 	echo "Note: Changes to wsl.conf require rebooting the distro."
 	;;
