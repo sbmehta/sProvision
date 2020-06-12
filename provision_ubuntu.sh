@@ -21,7 +21,6 @@ assert_user() {
 	    fi
 	    ;;
 	sudo)
-	    echo "$SUDO_USER"
 	    if [ "$EUID" -ne 0 ] || [ -z "$SUDO_USER" ] ; then  # EUID is 0 even if called as sudo?
 		echo "ERROR: must be called using sudo from a user account."
 		exit 1
@@ -33,53 +32,48 @@ assert_user() {
 
 case $1 in
     test)
+	## Dummy case
 	assert_user "sudo"
 	;;
     
-    bootstrap)   # call as sudo from desired uer account (not directly as root); interactive asks for passwords
-	assert_user "sudo"
+    bootstrap)   # call from desired uer account; interactive asks for passwords
+	## (1) install git, (2) local copy my git key, (3) create local provision repo
+	## As a side effect, updates then cleans the apt cache
+	assert_user "user"       ## ?? what if want to use machine/container as root??
 	GITKEY="id_rsa_github"
 	PROVISION="sProvision"
 
-	if [[ ! -f $HOME/.ssh/$GITKEY ]] ; then     # fetch my github key
-	    echo "Fetching samar's github key ..."
-	    pushd . 1> /dev/null
-	    install -d -o $SUDO_USER -g $SUDO_USER -m 700 $HOME/.ssh
-	    cd $HOME/.ssh
-	    scp samar@samarmehta.com:/home/samar/.ssh/$GITKEY $GITKEY    
-	    ssh-keygen -y -f $GITKEY > $GITKEY.pub     # regenerate public key
-	    chown $SUDO_USER:$SUDO_USER $GITKEY $GITKEY.pub
-	    chmod 600 $GITKEY $GITKEY.pub
-	    popd 1> /dev/null
-	fi
- 
-	echo "Confirming git available ..."
-	apt update
-	apt install -y git
-	
+	echo "Enter LOCAL sudo password to confirm git available ..."
+	sudo apt update
+	sudo apt install -y git
+	sudo apt clean
+
+	echo "Enter SAMAR@SAMARMEHTA.COM password to fetch samar's github key ..."
+	rsync samar@samarmehta.com:/home/samar/.ssh/id_rsa_github\{,.pub\} $HOME/.ssh
+
+ 	echo "Enter samar's ID_RSA_GITHUB password to use github key ..."
 	eval $(ssh-agent)
 	ssh-add $HOME/.ssh/$GITKEY
-	
-	install -d -o $SUDO_USER -g $SUDO_USER -m 700 $HOME/$PROVISION
-	cd $HOME/$PROVISION
-	if [[ ! $(git rev-parse --is-inside-work-tree) ]] ; then
-	    echo "Installing provisioning script ..."
-	    cd ..
-	    git clone git@github.com:sbmehta/$PROVISION.git
-	    chown -R $SUDO_USER:$SUDO_USER $HOME/$PROVISION
-	else
-	    git remote update
-	    if [[ $(git status --porcelain --untracked-files=no) ]] ; then
-		echo "WARNING: local provisioning repo differs from latest. Update manually if desired.\n"
+
+	echo "Installing provisioning script ..."
+	if [[ -d $HOME/$PROVISION ]]; then     # if already there, offer to delete
+	    read -p "Overwrite existing data at ~/$PROVISION?" confirm
+	    if [[ "$confirm" =~ "^[Yy]" ]]; then
+	       rm -rf $HOME/$PROVISION
 	    fi
 	fi
-	
-	echo "Provision repo available at ~/$PROVISION"	
+
+	if [[ ! -d $HOME/$PROVISION ]]; then    # only still here if user said don't overwrite
+	    install -d -o $USER -g $USER -m 700 $HOME/$PROVISION
+	    git clone git@github.com:sbmehta/$PROVISION.git $HOME/$PROVISION
+	    echo "Provision repo available at ~/$PROVISION"
+	fi
+
 	;;
     
     linkconfig)  # should these be source'd instead of symlinked to allow local mods?
 	assert_user "user"
-	echo "Linking dotfiles ..."
+	echo "Linking dotfiles (backup if exists) ..." 
 
 	ln -sfb $HOME/sProvision/.bashrc     $HOME
 	ln -sfb $HOME/sProvision/.emacs      $HOME
@@ -164,14 +158,14 @@ case $1 in
 	;;
     
     help|*)
-	echo "provision_ubuntu.sh bootstrap      (sudo) Sets up git and clones my provisioning repo."
-	echo "provision_ubuntu.sh linkconfig     (user) Link home dir dotfiles, .ssh config to this repo."
-	echo "provision_ubuntu.sh setup_first    (sudo) Minimal Ubuntu v>=18 stuff; ~5-25 MB download, ~15-100MB disk. Sets $SUDO_USER shell to zsh & adds /etc/wsl.conf default settings."
-	echo "provision_ubuntu.sh setup_second   (sudo) Run after ubuntu_light to add larger packages; ~280MB download, ~1GB disk."
+	echo "provision_ubuntu.sh bootstrap      (user/interactive) Sets up git and clones my provisioning repo."
+	echo "provision_ubuntu.sh linkconfig     (user) Link home dir dotfiles & .ssh config to provisioning repo."
+	echo "provision_ubuntu.sh setup_first    (sudo) Installs {zsh,curl,wget,keychain,neofetch}; ~5-25 MB download, ~15-100MB disk. Sets default shell to zsh. links /etc/wsl.conf to provisioning repo."
+	echo "provision_ubuntu.sh setup_second   (sudo) Run after setup_first to add larger packages {emacs, docker, powerlevel10k, gcc, etc.}; ~280MB download, ~1GB disk."
 	echo "provision_ubuntu.sh conda          (user) Sets up a basic miniconda distribution; ?? size."
 	echo "provision_ubuntu.sh help           Help string; this command."
 	;;
 esac
 
 echo
-exit 0
+
