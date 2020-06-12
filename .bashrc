@@ -3,18 +3,20 @@
 case $- in
     *i*)
         ;;
-    *)  return            # Insert commands for non-interactive shells here
+    *)  # Insert commands for non-interactive shells here
+	return            
         ;;
 esac
 
 if shopt -q login_shell; then # Insert commands for login shells here
-    echo "Login shell section ..."
+    echo "Login BASH"
 #  echo "Redirect from BASH"
 #  export SHELL=/bin/zsh  
 #  exec /bin/zsh -l
 fi
 
-echo "Configure BASH"
+echo "Configuring BASH"
+
 
 ########## HISTORY  ####################
 HISTCONTROL=ignoreboth  # ignore dup lines or lines starting with space
@@ -34,13 +36,6 @@ else
 fi
 unset color_prompt
 
-
-########## DISPLAY #####################
-shopt -s checkwinsize # check win size after each command and update LINES+COLUMNS if necessary
-
-if [ -x /usr/bin/dircolors ]; then # color support for ls
-    test -r ~/dotfiles/.dir_colors && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
-fi
 
 ########## COMPLETION  #################
 shopt -s extglob
@@ -75,34 +70,49 @@ if [[ -d /broad ]]; then
     #use Python-2.7
     source ~/dx-toolkit/environment
     dx login --token  gTJ25OGvoOPGbRKISuEQRuS3iPV9eNrC --noprojects  # samar_all_20200423
-    #dx select project-FPgF38Q0bg5f24jb13v65Pf1     # LASV_NIG_METAGENOMICS_part_deux
-    dx select project-FpJPppj0KQf5X20VBPYJX9Gp     # H3_KGH_SARS-COV-2 BATCH 2
+    dx select project-FPgF38Q0bg5f24jb13v65Pf1     # LASV_NIG_METAGENOMICS_part_deux
 
-    . /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_2.3.0-jupyter/etc/profile.d/conda.sh
+    source /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_2.3.0-jupyter/etc/profile.d/conda.sh
 fi
-
-
-########## PLUGINS  ####################
 
 
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
 
-alias passwd=yppasswd
-
 
 ########## PATH  #######################
-#if [[ -d ~/ncbi-toolkit ]] ; then
-#   export PATH=${PATH}:/home/samar/ncbi-toolkit
-#fi
+
+
+########## DISPLAY #####################
+shopt -s checkwinsize # check win size after each command and update LINES+COLUMNS if necessary
+
+if [ -x /usr/bin/dircolors ]; then # color support for ls
+    test -r ~/dotfiles/.dir_colors && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
+fi
 
 
 ########## SSH  ########################
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-    eval `ssh-agent -s -t 1h`     # timeout in an hour
+#if [ -z "$SSH_AUTH_SOCK" ] ; then
+#    eval `ssh-agent -s -t 1h`     # timeout in an hour
+#    ssh-add
+#fi
+
+
+########## CONDA  ######################
+if [ -d "$HOME/miniconda" ] ; then
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/home/samar/miniconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+	eval "$__conda_setup"
+    else
+	if [ -f "/home/samar/miniconda/etc/profile.d/conda.sh" ]; then
+            . "/home/samar/miniconda/etc/profile.d/conda.sh"
+	else
+            export PATH="/home/samar/miniconda/bin:$PATH"
+	fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
 fi
 
-########## FINALIZE ####################
-if type "neofetch" &> /dev/null; then
-    neofetch
-fi

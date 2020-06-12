@@ -1,4 +1,4 @@
-# ~/.zshrc: executed by zsh(1)
+# ~/.zshrc
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.            
 # Initialization code that may require console input (password prompts, [y/n]               
@@ -15,8 +15,10 @@ fi
 if [[ -o login ]]; then
     # Insert commands to be run at login only here.
     echo "Login ZSH"
+    cd $HOME
 fi
 echo "Configuring ZSH"
+
 
 ########## HISTORY  ####################
 setopt histignorealldups sharehistory
@@ -24,16 +26,13 @@ HISTSIZE=5000
 SAVEHIST=5000
 HISTFILE=~/.zsh_history
 
+
 ########## PROMPT (if Powerlevel10k fails)
 autoload -U colors && colors
 autoload -Uz promptinit && promptinit
 PROMPT="%{$fg_bold[green]%}%n%F{white}@%F{146}%M%{$fg_no_bold[white]%}:%~> "
 RPROMPT="%*"
 
-########## DISPLAY #####################
-if [[ -x /usr/bin/dircolors ]]; then
-    [ -r ~/dotfiles/.dir_colors ] && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
-fi
 
 ########## COMPLETION  #################
 fpath+=$HOME/.config/conda-zsh-completion
@@ -105,44 +104,8 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-finish
 fi
 
-########## BROAD environment  ##########
-#if [[ -f /broad/software/dotkit/etc/systype ]]; then
-#
-#   # Modified from Broad's default .bashrc -- note this won't work for SUSE systems
-#
-#   # Set up dotkit
-#    eval `/broad/software/dotkit/init -b`
-#  
-#   if [[ -o login ]]; then          # Login shells
-#       if [[ "x$RUN_ONCE" == "x"  ]]; then
-#           export RUN_ONCE="1"
-#           # Load the default dotkits to set up basic Broad user environment
-#           use -q default
-#       fi
-#   fi
-# 
-#   if [[ -o interactive ]]; then    # Interactive shells
-#       use -q default++
-#   fi
-# fi
 
-
-########## ALIASES  ####################
-alias ls='ls -aF --color=auto'
-
-########## PATH  #######################
-#export PATH="$HOME/.local/bin:$PATH"
-
-########## SSH  ########################
-eval $(keychain --timeout 60 --eval id_rsa_github)
-
-## without using keychain: (though this doesn't reuse agents)
-#if [ -z "$SSH_AUTH_SOCK" ] ; then
-#    eval `ssh-agent -s -t 1h`
-#    ssh-add
-#fi
-
-########## Biosyntax ###################
+########## BIOSYNTAX ###################
 export HIGHLIGHT="/usr/share/source-highlight"
 export LESSOPEN="| $HIGHLIGHT/src-hilite-lesspipe-bio.sh %s"
 export LESS=" -R "
@@ -167,18 +130,36 @@ alias bam-less='sam-less'
 #alias flagstat-less='source-highlight -f esc --lang-def=$HIGHLIGHT/flagstat.lang --outlang-def=$HIGHLIGHT/bioSyntax.outlang   --style-file=$HIGHLIGHT/sam.style   | lessbio'
 
 
-########## POWERLEVEL10k ###############
+########## POWERLEVEL10k  ##############
 [[ -d "$HOME/powerlevel10k" ]] && source "$HOME/powerlevel10k/powerlevel10k.zsh-theme"
 
 [[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 
-########## FINALIZE ####################
+
+########## NEOFETCH  ###################
 if type "neofetch" &> /dev/null; then
     neofetch
 fi
-cd ~
 
 
+########## ALIASES  ####################
+alias ls='ls -aF --color=auto'
+
+
+########## PATH  #######################
+
+
+########## DISPLAY #####################
+if [[ -x /usr/bin/dircolors ]]; then
+    [ -r ~/dotfiles/.dir_colors ] && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
+fi
+
+
+########## SSH  ########################
+eval $(keychain --timeout 60 --eval id_rsa_github)
+
+
+########## CONDA  ######################
 if [ -d "$HOME/miniconda" ] ; then
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
