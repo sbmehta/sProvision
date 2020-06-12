@@ -47,14 +47,14 @@ case $1 in
 	echo "Enter LOCAL sudo password to make sure git up to date ..."
 	sudo apt update
 	sudo apt install -y git
-	sudo apt clean
+	sudo apt autoclean
 
 	echo
 	echo "Enter SAMAR@SAMARMEHTA.COM password to fetch samar's github key ..."
 	rsync samar@samarmehta.com:/home/samar/.ssh/id_rsa_github\{,.pub\} $HOME/.ssh
 
 	echo
- 	echo "Enter samar's ID_RSA_GITHUB password to use github key ..."
+ 	echo "Enter samar's ID_RSA_GITHUB password to test github key ..."
 	eval $(ssh-agent)
 	ssh-add $HOME/.ssh/$GITKEY
 
@@ -98,8 +98,8 @@ case $1 in
 	apt autoclean && apt autoremove
 	
 	cat $HOME/sProvision/wsl.conf >> /etc/wsl.conf  # simple defaults; no effect if not on wsl
-	
-cd 	chsh -s '/bin/zsh' "${USER}"
+ 
+   	chsh -s '/bin/zsh' "${USER}"
 
 	echo "Note: Changes to wsl.conf require rebooting the distro."
 	;;
