@@ -146,7 +146,7 @@ case $1 in
 	bash miniconda.sh -b -p $HOME/miniconda
 	rm miniconda.sh
 
-	source $HOME/.bashrc    # force conda initialization
+	eval "$HOME/miniconda/bin/conda shell.bash hook 2> /dev/null"
 	source $HOME/miniconda/bin/activate
 	conda config --add channels defaults
 	conda config --add channels bioconda
