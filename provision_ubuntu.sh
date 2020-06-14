@@ -132,7 +132,7 @@ case $1 in
     conda)
 	assert_user "user"
 
-	# need to compare size if run pre-/post- medium provision (i.e,. does this download a 2nd Python distribution?)
+	# need to compare size if run pre-/post- other provision (i.e,. does this download a 2nd Python distribution?)
 	
 	# Start with Miniconda
 	cd $HOME
@@ -146,7 +146,7 @@ case $1 in
 	bash miniconda.sh -b -p $HOME/miniconda
 	rm miniconda.sh
 
-	eval "$HOME/miniconda/bin/conda shell.bash hook 2> /dev/null"
+	#eval "$HOME/miniconda/bin/conda shell.bash hook 2> /dev/null"
 	source $HOME/miniconda/bin/activate
 	conda config --add channels defaults
 	conda config --add channels bioconda
