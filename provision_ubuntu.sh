@@ -146,8 +146,6 @@ case $1 in
 	bash miniconda.sh -b -p $HOME/miniconda
 	rm miniconda.sh
 
-	#eval "$HOME/miniconda/bin/conda shell.bash hook 2> /dev/null"
-	source $HOME/miniconda/bin/activate
 	conda config --add channels defaults
 	conda config --add channels bioconda
 	conda config --add channels conda-forge
@@ -159,7 +157,7 @@ case $1 in
 	cd $HOME/.config
 	git clone https://github.com/esc/conda-zsh-completion
 
-	#conda init zsh      # i think i already included all this in .zshrc?		
+	## note: .zshrc & .bashrc should already have conda initialization; otherwise run "conda init 'shellname'"
 	;;
     
     help|*)
