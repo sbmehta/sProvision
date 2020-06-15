@@ -45,8 +45,9 @@ case $1 in
 
 	echo
 	echo "Enter $KEYUSER@$KEYSERVER password to fetch samar's github key ..."
+	touch $HOME/.ssh/known_hosts
 	ssh-keygen -R $KEYSERVER
-	ssh-keyscan -H $KEYSERVER >> ~/.ssh/known_hosts
+	ssh-keyscan -H $KEYSERVER >> $HOME/.ssh/known_hosts
 	rsync $KEYUSER@$KEYSERVER:/home/samar/.ssh/id_rsa_github\{,.pub\} $HOME/.ssh
 
 	echo
@@ -54,7 +55,7 @@ case $1 in
 	eval $(ssh-agent)
 	ssh-add $HOME/.ssh/$GITKEY
 	ssh-keygen -R github.com
-	ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+	ssh-keyscan -H github.com >> $HOME/.ssh/known_hosts
 	
 	echo
 	echo "Installing provisioning script ..."
