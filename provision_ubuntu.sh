@@ -77,15 +77,15 @@ case $1 in
 	;;
     
     setup_basic)
-	sudo apt update && apt upgrade -y
+	sudo apt update
 	sudo apt install -y zsh                           # preferred environment
 	sudo apt install -y curl wget                     # data transfer
 	sudo apt install -y neofetch keychain             # misc utilities
-	sudo apt autoclean && apt autoremove
+	sudo apt autoclean && sudo apt autoremove
 
 	make_symlinks
-	
-	sudo cat $HOME/sProvision/wsl.conf >> /etc/wsl.conf  # simple defaults; no effect if not on wsl
+
+	cat $HOME/sProvision/wsl.con | sudo tee -a /etc/wsl.conf # simple defaults for wsl
  
    	sudo chsh -s '/bin/zsh' "${USER}"
 
@@ -100,7 +100,7 @@ case $1 in
 
 	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerlevel10k
 
-	sudo apt update && apt upgrade -y
+	sudo apt update && sudo apt upgrade -y
 	
 	# Start with Miniconda
 	cd $HOME
