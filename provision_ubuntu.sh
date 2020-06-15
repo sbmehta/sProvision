@@ -90,7 +90,7 @@ case $1 in
 	;;
 
     relink_dotfiles)
-	make_simlinks()
+	make_simlinks
 	;;
     
     setup_dev)
