@@ -43,9 +43,11 @@ case $1 in
 	sudo apt install -y git openssh-client
 	sudo apt autoclean
 
+	mkdir -p $HOME/.ssh
+	touch $HOME/.ssh/known_hosts
+	
 	echo
 	echo "Enter $KEYUSER@$KEYSERVER password to fetch samar's github key ..."
-	touch $HOME/.ssh/known_hosts
 	ssh-keygen -R $KEYSERVER
 	ssh-keyscan -H $KEYSERVER >> $HOME/.ssh/known_hosts
 	rsync $KEYUSER@$KEYSERVER:/home/samar/.ssh/id_rsa_github\{,.pub\} $HOME/.ssh
