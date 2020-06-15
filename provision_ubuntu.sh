@@ -21,7 +21,7 @@ make_symlinks () {
 }
 
 
-if [ "UID" -eq 0 ] ; then
+if [ "$UID" -eq 0 ] ; then
     echo
     echo "WARNING: running as root can have unexpected effects."
     echo	 
@@ -80,7 +80,7 @@ case $1 in
 	sudo apt install -y neofetch keychain             # misc utilities
 	sudo apt autoclean && apt autoremove
 
-	make_symlinks()
+	make_symlinks
 	
 	sudo cat $HOME/sProvision/wsl.conf >> /etc/wsl.conf  # simple defaults; no effect if not on wsl
  
