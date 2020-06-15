@@ -85,7 +85,7 @@ case $1 in
 
 	make_symlinks
 
-	cat $HOME/sProvision/wsl.con | sudo tee -a /etc/wsl.conf # simple defaults for wsl
+	cat $HOME/sProvision/wsl.conf | sudo tee -a /etc/wsl.conf # simple defaults for wsl
  
    	sudo chsh -s '/bin/zsh' "${USER}"
 
