@@ -113,7 +113,6 @@ case $1 in
 	fi
 	bash miniconda.sh -b -p $HOME/miniconda
 	rm miniconda.sh
-	
 	## note: .zshrc & .bashrc should already have conda initialization; otherwise run "conda init 'shellname'"
 	
 	sudo apt install -y gcc make                      # dev toolchain
@@ -147,6 +146,12 @@ case $1 in
 	conda config --add channels conda-forge
         conda update -y conda
 	conda update -y --all
+
+	conda install -y pylint
+	conda install -y numpy scipy pandas statsmodels scikit-learn
+	conda install -y matplotlib seaborn bokeh
+	conda install -y notebook jupyterlab
+	
 	conda clean -y --all
 
 	;;
