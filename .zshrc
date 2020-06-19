@@ -147,6 +147,17 @@ alias ls='ls -aF --color=auto'
 
 
 ########## PATH  #######################
+PATHLIST=()
+PATHLIST+=("/mnt/c/sbmehta.gmail/Apps/vscode/bin")
+
+for p in $PATHLIST ;
+do
+    [[ -d "$p" ]] && path=("$p" $path)
+done
+
+path=( ${path[@]:#*games*} )
+
+typeset -aU path
 
 
 ########## DISPLAY #####################
