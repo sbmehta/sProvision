@@ -151,6 +151,7 @@ case $1 in
 	conda install -y numpy scipy pandas statsmodels scikit-learn
 	conda install -y matplotlib seaborn bokeh
 	conda install -y notebook jupyterlab
+	conda install -y google-cloud-sdk
 	
 	conda clean -y --all
 
