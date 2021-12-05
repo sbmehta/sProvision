@@ -162,7 +162,7 @@ case $1 in
 	echo "provision_ubuntu.sh bootstrap         (interactive) Sets up git and clones my provisioning repo."
 	echo "provision_ubuntu.sh relink_dotfiles   Fixes links to ink home dir dotfiles & .ssh config to provisioning repo."
 	echo "provision_ubuntu.sh setup_basic       Installs {curl,keychain,neofetch,wget,zsh}; ~5-25 MB download, ~15-100MB disk. Sets default shell to zsh. links /etc/wsl.conf to provisioning repo."
-	echo "provision_ubuntu.sh setup_dev         Installs packages {conda, emacs, docker, gcc, powerlevel10k, gcc, etc.}; ~350MB download, ~1.5GB disk."
+	echo "provision_ubuntu.sh setup_dev         Installs packages {conda, emacs, docker, gcc, powerlevel10k, etc.}; ~350MB download, ~1.5GB disk."
 	echo "provision_ubuntu.sh setup_full        Sets up python packages under conda"
 	;;
 esac
