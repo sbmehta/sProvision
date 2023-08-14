@@ -50,7 +50,7 @@ case $1 in
 	echo "Enter $KEYUSER@$KEYSERVER password to fetch samar's github key ..."
 	ssh-keygen -R $KEYSERVER
 	ssh-keyscan -H $KEYSERVER >> $HOME/.ssh/known_hosts
-	rsync $KEYUSER@$KEYSERVER:/home/samar/.ssh/id_rsa_github\{,.pub\} $HOME/.ssh
+	rsync $KEYUSER@$KEYSERVER:/home/samar/.ssh/id_rsa_github{,.pub} $HOME/.ssh
 
 	echo
  	echo "Enter samar's ID_RSA_GITHUB password to test github key ..."
@@ -126,9 +126,9 @@ case $1 in
 	sudo apt update
 	sudo apt -y install docker-ce
 	
-	sudo add-apt-repository -y ppa:biosyntax/ppa
-	sudo apt update
-	sudo apt install -y biosyntax-less
+	#sudo add-apt-repository -y ppa:biosyntax/ppa
+	#sudo apt update
+	#sudo apt install -y biosyntax-less
 
 	mkdir -p $HOME/.config
 	
@@ -142,7 +142,7 @@ case $1 in
     setup_full)
 
 	conda config --add channels defaults
-	conda config --add channels bioconda
+	#conda config --add channels bioconda
 	conda config --add channels conda-forge
         conda update -y conda
 	conda update -y --all
@@ -168,4 +168,3 @@ case $1 in
 esac
 
 echo
-
