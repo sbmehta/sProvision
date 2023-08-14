@@ -159,6 +159,8 @@ case $1 in
     setup_R)
 	sudo apt install r-base r-base-dev -y
 	conda install -c conda-forge r-essentials
+
+	;;
 	
     help|*)
 	echo "provision_debian.sh help              Help string; this command."
