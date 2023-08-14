@@ -139,10 +139,9 @@ case $1 in
 
 	;;
 	
-    setup_full)
+    setup_python)
 
 	conda config --add channels defaults
-	#conda config --add channels bioconda
 	conda config --add channels conda-forge
         conda update -y conda
 	conda update -y --all
@@ -151,19 +150,23 @@ case $1 in
 	conda install -y numpy scipy pandas statsmodels scikit-learn
 	conda install -y matplotlib seaborn bokeh
 	conda install -y notebook jupyterlab
-	conda install -y google-cloud-sdk
+	#conda install -y google-cloud-sdk
 	
 	conda clean -y --all
 
 	;;
-    
+
+    setup_R)
+	sudo apt install r-base r-base-dev -y
+	conda install -c conda-forge r-essentials
+	
     help|*)
 	echo "provision_debian.sh help              Help string; this command."
 	echo "provision_debian.sh bootstrap         (interactive) Sets up git and clones my provisioning repo."
 	echo "provision_debian.sh relink_dotfiles   Fixes links to ink home dir dotfiles & .ssh config to provisioning repo."
 	echo "provision_debian.sh setup_basic       Installs {curl,keychain,neofetch,wget,zsh}; ~5-25 MB download, ~15-100MB disk. Sets default shell to zsh. links /etc/wsl.conf to provisioning repo."
 	echo "provision_debian.sh setup_dev         Installs packages {conda, emacs, docker, gcc, powerlevel10k, etc.}; ~350MB download, ~1.5GB disk."
-	echo "provision_debian.sh setup_full        Sets up python packages under conda"
+	echo "provision_debian.sh setup_python      Sets up common python packages under conda"
 	;;
 esac
 

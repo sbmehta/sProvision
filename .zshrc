@@ -179,11 +179,14 @@ if [ -d "$HOME/miniconda" ] ; then
 	eval "$__conda_setup"
     else
 	if [ -f "/home/samar/miniconda/etc/profile.d/conda.sh" ]; then
-	    . "/home/samar/miniconda/etc/profile.d/conda.sh"
+# . "/home/samar/miniconda/etc/profile.d/conda.sh"  # commented out by conda initialize
 	else
-	    export PATH="/home/samar/miniconda/bin:$PATH"
+# export PATH="/home/samar/miniconda/bin:$PATH"  # commented out by conda initialize
 	fi
     fi
     unset __conda_setup
     # <<< conda initialize <<<
 fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
