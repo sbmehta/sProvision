@@ -124,11 +124,7 @@ case $1 in
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
         echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 	sudo apt update
-	sudo apt -y policy docker-ce
 	
-	#sudo add-apt-repository -y ppa:biosyntax/ppa
-	#sudo apt update
-	#sudo apt install -y biosyntax-less
 
 	mkdir -p $HOME/.config
 	
