@@ -138,24 +138,25 @@ fi
 
 ########## NEOFETCH  ###################
 if type "neofetch" &> /dev/null; then
-    neofetch
+#    neofetch
 fi
 
 
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
-
+alias emacs='emacs -nw'
 
 ########## PATH  #######################
 PATHLIST=()
-PATHLIST+=("/mnt/c/sbmehta.gmail/Apps/vscode/bin")
+#PATHLIST+=("/mnt/c/sbmehta.gmail/Apps/vscode/bin")
+PATHLIST+=("/home/samar/julia-1.11.2/bin")
 
 for p in $PATHLIST ;
 do
-    [[ -d "$p" ]] && path=("$p" $path)
+    [[ -d "$p" ]] && path+=($p)
 done
 
-path=( ${path[@]:#*games*} )
+export PATH
 
 typeset -aU path
 
