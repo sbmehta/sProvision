@@ -129,11 +129,19 @@
 ;(load-library "shell")
 (setq explicit-shell-file-name "/usr/bin/zsh")
 
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("f87c86fa3d38be32dc557ba3d4cedaaea7bc3d97ce816c0e518dfe9633250e34" "6ce3a9999d69d6b267a29856a808acfb36471c146704dab7877906ec363244e6" default)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
-
-
-
-
-
-
-
+(load-theme `zenburn t)

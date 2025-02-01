@@ -19,3 +19,5 @@ exec /bin/zsh -l
 
 # set PATH so it includes user's private bin directories
 # PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+
+[ -f "/home/samar/.ghcup/env" ] && . "/home/samar/.ghcup/env" # ghcup-env

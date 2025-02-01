@@ -1,5 +1,14 @@
 # ~/.zshrc
 
+########## NEOFETCH  ###################
+if type "neofetch" &> /dev/null; then
+    neofetch
+fi
+
+########## SSH  ########################
+eval $(keychain --timeout 60 --eval id_rsa_github)
+
+########## POWERLEVEL10 instant prompt #
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.            
 # Initialization code that may require console input (password prompts, [y/n]               
 # confirmations, etc.) must go above this block; everything else may go below.              
@@ -136,19 +145,13 @@ fi
 [[ ! -f "$HOME/.p10k.zsh" ]] || source "$HOME/.p10k.zsh"    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 
 
-########## NEOFETCH  ###################
-if type "neofetch" &> /dev/null; then
-#    neofetch
-fi
-
-
 ########## ALIASES  ####################
 alias ls='ls -aF --color=auto'
 alias emacs='emacs -nw'
 
 ########## PATH  #######################
 PATHLIST=()
-#PATHLIST+=("/mnt/c/sbmehta.gmail/Apps/vscode/bin")
+PATHLIST+=("/mnt/c/Users/sbmeh/AppData/Local/Programs/Microsoft VS Code/bin")
 PATHLIST+=("/home/samar/julia-1.11.2/bin")
 
 for p in $PATHLIST ;
@@ -165,10 +168,6 @@ typeset -aU path
 if [[ -x /usr/bin/dircolors ]]; then
     [ -r ~/dotfiles/.dir_colors ] && eval "$(dircolors -b ~/dotfiles/.dir_colors)" || eval "$(dircolors -b)"
 fi
-
-
-########## SSH  ########################
-eval $(keychain --timeout 60 --eval id_rsa_github)
 
 
 ########## CONDA  ######################
@@ -188,6 +187,10 @@ if [ -d "$HOME/miniconda" ] ; then
     unset __conda_setup
     # <<< conda initialize <<<
 fi
+
+######### GHC  #########################
+[ -f "/home/samar/.ghcup/env" ] && . "/home/samar/.ghcup/env" # ghcup-env
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
