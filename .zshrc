@@ -1,13 +1,5 @@
 # ~/.zshrc
 
-########## NEOFETCH  ###################
-if type "neofetch" &> /dev/null; then
-    neofetch
-fi
-
-########## SSH  ########################
-eval $(keychain --timeout 60 --eval id_rsa_github)
-
 ########## POWERLEVEL10 instant prompt #
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.            
 # Initialization code that may require console input (password prompts, [y/n]               
@@ -190,6 +182,16 @@ fi
 
 ######### GHC  #########################
 [ -f "/home/samar/.ghcup/env" ] && . "/home/samar/.ghcup/env" # ghcup-env
+
+
+########## NEOFETCH  ###################
+if type "neofetch" &> /dev/null; then
+    neofetch
+fi
+
+########## SSH  ########################
+eval $(keychain --timeout 60 --eval id_rsa_github)
+
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
