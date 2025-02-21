@@ -104,15 +104,12 @@ case $1 in
 	
 	# Start with Miniconda
 	cd $HOME
-	VERSION="Miniconda3-py37_4.8.2-Linux-x86_64.sh"
-	HASH="957d2f0f0701c3d1335e3b39f235d197837ad69a944fa6f5d8ad2c686b69df3b"
-	wget https://repo.continuum.io/miniconda/$VERSION -O miniconda.sh
-	if ! echo "$HASH  miniconda.sh" | sha256sum --check --status ; then
-	    echo "ERROR: checksum failed in downloading $VERSION"
-	    exit 1
-	fi
-	bash miniconda.sh -b -p $HOME/miniconda
-	rm miniconda.sh
+	rm -r $HOME/miniconda3
+	mkdir -p $HOME/miniconda3
+	wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/miniconda3/miniconda.sh
+	bash $HOME/miniconda3/miniconda.sh -b -u -p $HOME/miniconda3
+	rm $HOME/miniconda3/miniconda.sh
+	
 	## note: .zshrc & .bashrc should already have conda initialization; otherwise run "conda init 'shellname'"
 	
 	sudo apt install -y gcc make                      # dev toolchain
@@ -152,6 +149,12 @@ case $1 in
 
 	;;
 
+
+    setup_haskell)
+	curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+
+	;;
+    
     setup_R)
 	sudo apt install r-base r-base-dev -y
 	conda install -c conda-forge r-essentials
